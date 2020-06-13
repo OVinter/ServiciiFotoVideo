@@ -71,6 +71,8 @@ public class FereastraClient {
     private Button serviciNou = new Button();
     @FXML
     private Button dorescOferta = new Button();
+    @FXML
+    private Button helpButton = new Button();
 
 
 
@@ -300,6 +302,16 @@ public class FereastraClient {
     @FXML
     private void serviciNouButton() {
         initialize();
+    }
+
+    @FXML
+    private void actionForHelpButton() {
+        /*Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Help window");
+        alert.setHeaderText("Salvarea optiunilor");
+        alert.setContentText("Pentru a salva optiunile foloseste butonul \"OK\" din dreapta fiecarui camp!\n" +
+                "Pentru campurile \"Numar fotografi\" si \"Numar videografi\" exista un singur buton!");
+        alert.showAndWait();*/
     }
 
     private Servicii checkServicii() {
