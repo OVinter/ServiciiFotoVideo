@@ -2,10 +2,16 @@ package org.example;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 public class FereastraClient {
 
@@ -58,6 +64,8 @@ public class FereastraClient {
     private CheckBox albumFoto = new CheckBox();
     @FXML
     private Button serviciNou = new Button();
+    @FXML
+    private Button dorescOferta = new Button();
 
 
 
@@ -125,6 +133,7 @@ public class FereastraClient {
         nrVideografi.setValue(1);
         tipSedintaFoto.setValue("Sedinta foto simpla");
         tipFilmareVideo.setValue("Video highlights");
+        nrTinuteProduseMinute.setPromptText("Nr Tinute/Produse/Minute");
     }
 
     @FXML
@@ -176,12 +185,48 @@ public class FereastraClient {
     private void actionForTipSedintaFotoButton() {
         getStringChoice(tipSedintaFoto);
         tipServiciFotoProgramare = tipSedintaFoto.getValue();
+        if(tipServiciFotoProgramare.equals("Sedinta foto simpla")) {
+            nrTinuteProduseMinute.setPromptText("Minute");
+            nrTinuteProduseMinute.setDisable(false);
+            nrTinuteProduseMinuteButton.setDisable(false);
+        }
+        if(tipServiciFotoProgramare.equals("Sedinta foto cuplu")) {
+            nrTinuteProduseMinute.setPromptText("90 min");
+            nrTinuteProduseMinute.setDisable(true);
+            nrTinuteProduseMinuteButton.setDisable(true);
+        }
+        if(tipServiciFotoProgramare.equals("Sedinta foto familie")) {
+            nrTinuteProduseMinute.setPromptText("Tinute");
+            nrTinuteProduseMinute.setDisable(false);
+            nrTinuteProduseMinuteButton.setDisable(false);
+        }
+        if(tipServiciFotoProgramare.equals("Sedinta foto produse")) {
+            nrTinuteProduseMinute.setPromptText("Produse");
+            nrTinuteProduseMinute.setDisable(false);
+            nrTinuteProduseMinuteButton.setDisable(false);
+        }
+
     }
 
     @FXML
     private void actionForTipFilmareVideoButton() {
         getStringChoice(tipFilmareVideo);
         tipServiciVideoProgramare = tipFilmareVideo.getValue();
+        if(tipServiciVideoProgramare.equals("Video highlights")) {
+            nrPublicNrFani.setPromptText("TargetPublic/NumarFani");
+            nrPublicNrFani.setDisable(true);
+            nrPublicNrFaniButton.setDisable(true);
+        }
+        if(tipServiciVideoProgramare.equals("Video advertising")) {
+            nrPublicNrFani.setPromptText("Numar public target");
+            nrPublicNrFani.setDisable(false);
+            nrPublicNrFaniButton.setDisable(false);
+        }
+        if(tipServiciVideoProgramare.equals("Video muzical")) {
+            nrPublicNrFani.setPromptText("Numar fani");
+            nrPublicNrFani.setDisable(false);
+            nrPublicNrFaniButton.setDisable(false);
+        }
     }
 
     @FXML
@@ -221,8 +266,39 @@ public class FereastraClient {
     }
 
     @FXML
-    private void serviciNou() {
+    private void serviciNouButton() {
         initialize();
+    }
+
+    private AnchorPane anchorPane;
+
+    @FXML
+    private void actionForDorescOfertaButton() {
+        /*if(tipServiciProgramare.equals("Promo")) {
+            System.out.println(tipServiciFotoProgramare);
+            //new Promo(,,,,);
+        }else if(tipServiciFotoProgramare.equals("Sedinta foto simpla")) {
+            System.out.println(tipServiciFotoProgramare);
+            //new SedintaFotoSimpla(,,,,);
+        }else if(tipServiciFotoProgramare.equals("Sedinta foto familie")) {
+            System.out.println(tipServiciFotoProgramare);
+            //new SedintaFotoFamilie(,,,,);
+        }else if(tipServiciFotoProgramare.equals("Sedinta foto cuplu")) {
+            System.out.println(tipServiciFotoProgramare);
+            //new SedintaFotoCuplu(,,,,);
+        }else if(tipServiciFotoProgramare.equals("Sedinta foto produse")) {
+            System.out.println(tipServiciFotoProgramare);
+            //new SedintaFotoProdus(,,,,);
+        }else if(tipServiciVideoProgramare.equals("Video highlights")) {
+            System.out.println(tipServiciVideoProgramare);
+            //new videoHighlights(,,,,);
+        }else if(tipServiciVideoProgramare.equals("Video muzical")) {
+            System.out.println(tipServiciVideoProgramare);
+            //new videoMuzical(,,,,);
+        }else if(tipServiciVideoProgramare.equals("Video advertising")) {
+            System.out.println(tipServiciVideoProgramare);
+            //new videoAdvertising(,,,,);
+        }*/
     }
 
     @FXML
