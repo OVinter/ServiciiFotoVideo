@@ -341,7 +341,7 @@ public class FereastraClient {
 
             //The following both lines are the only addition we need to pass the arguments
             ConfirmBox confirmBox = loader.getController();
-            confirmBox.setText(s.informatiiServici());
+            confirmBox.setText("aaa");//s.informatiiServici());
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
