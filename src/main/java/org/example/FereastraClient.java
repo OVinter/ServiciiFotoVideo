@@ -333,7 +333,7 @@ public class FereastraClient {
 
     @FXML
     private void actionForDorescOfertaButton() {
-        /*Servicii s = checkServicii();
+        Servicii s = checkServicii();
         boolean confirm;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("ConfirmBox.fxml"));
@@ -351,7 +351,7 @@ public class FereastraClient {
             System.out.println(confirm);
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
     }
 
     @FXML
