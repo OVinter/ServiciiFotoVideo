@@ -1,14 +1,25 @@
 package org.example;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.StringConverter;
+import servicii.Servicii;
+import servicii.foto.SedintaFotoCuplu;
+import servicii.foto.SedintaFotoSimpla;
+import servicii.promo.PachetPromo;
 
+import javax.xml.soap.Node;
+import javax.xml.soap.Text;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
@@ -270,13 +281,10 @@ public class FereastraClient {
         initialize();
     }
 
-    private AnchorPane anchorPane;
-
-    @FXML
-    private void actionForDorescOfertaButton() {
-        /*if(tipServiciProgramare.equals("Promo")) {
+    private Servicii checkServicii() {
+        if(tipServiciProgramare.equals("Promo")) {
             System.out.println(tipServiciFotoProgramare);
-            //new Promo(,,,,);
+            //return new PachetPromo(",,,,");
         }else if(tipServiciFotoProgramare.equals("Sedinta foto simpla")) {
             System.out.println(tipServiciFotoProgramare);
             //new SedintaFotoSimpla(,,,,);
@@ -285,7 +293,7 @@ public class FereastraClient {
             //new SedintaFotoFamilie(,,,,);
         }else if(tipServiciFotoProgramare.equals("Sedinta foto cuplu")) {
             System.out.println(tipServiciFotoProgramare);
-            //new SedintaFotoCuplu(,,,,);
+            //new SedintaFotoCuplu(,,,,,);
         }else if(tipServiciFotoProgramare.equals("Sedinta foto produse")) {
             System.out.println(tipServiciFotoProgramare);
             //new SedintaFotoProdus(,,,,);
@@ -298,6 +306,30 @@ public class FereastraClient {
         }else if(tipServiciVideoProgramare.equals("Video advertising")) {
             System.out.println(tipServiciVideoProgramare);
             //new videoAdvertising(,,,,);
+        }
+        return null;
+    }
+
+    @FXML
+    private void actionForDorescOfertaButton() {
+        /*Servicii s = checkServicii();
+        boolean confirm;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ConfirmBox.fxml"));
+            Parent root = loader.load();
+
+            //The following both lines are the only addition we need to pass the arguments
+            ConfirmBox confirmBox = loader.getController();
+            confirmBox.setText(s.informatiiServici());
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("-- Confirmare servici dorit --");
+            stage.showAndWait();
+            confirm = confirmBox.isAnswer();
+            System.out.println(confirm);
+        } catch (IOException e) {
+            e.printStackTrace();
         }*/
     }
 
