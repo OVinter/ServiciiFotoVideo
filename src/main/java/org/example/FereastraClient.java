@@ -7,22 +7,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.StringConverter;
 import servicii.Servicii;
 import servicii.foto.SedintaFotoCuplu;
 import servicii.foto.SedintaFotoSimpla;
 import servicii.promo.PachetPromo;
 
-import javax.xml.soap.Node;
-import javax.xml.soap.Text;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Optional;
 
 public class FereastraClient {
 
@@ -242,20 +236,47 @@ public class FereastraClient {
 
     @FXML
     private void actionForNrTinuteProduseMinuteButton() {
-        nrTinuteProduseMinuteProgramare = Integer.parseInt(nrTinuteProduseMinute.getText());
-        System.out.println(nrTinuteProduseMinuteProgramare);
+        if(nrTinuteProduseMinute.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("Campul nu este completat");
+            alert.setContentText("Campul trebuie sa fie completat inainte de a apasa butonul \"OK\".\n" +
+                            "Te rugam sa completezi campul!");
+            alert.showAndWait();
+        } else {
+            nrTinuteProduseMinuteProgramare = Integer.parseInt(nrTinuteProduseMinute.getText());
+            System.out.println(nrTinuteProduseMinuteProgramare);
+        }
     }
 
     @FXML
     private void actionForNrSecundeFilmareButton() {
-        nrSecundeFilmareProgramare = Integer.parseInt(nrSecundeFilmare.getText());
-        System.out.println(nrSecundeFilmareProgramare);
+        if(nrSecundeFilmare.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("Campul nu este completat");
+            alert.setContentText("Campul trebuie sa fie completat inainte de a apasa butonul \"OK\".\n" +
+                    "Te rugam sa completezi campul!");
+            alert.showAndWait();
+        } else {
+            nrSecundeFilmareProgramare = Integer.parseInt(nrSecundeFilmare.getText());
+            System.out.println(nrSecundeFilmareProgramare);
+        }
     }
 
     @FXML
     private void actionForNrPublicNrFaniButton() {
-        nrPublicNrFaniProgramare = Integer.parseInt(nrPublicNrFani.getText());
-        System.out.println(nrPublicNrFaniProgramare);
+        if(nrPublicNrFani.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("Campul nu este completat");
+            alert.setContentText("Campul trebuie sa fie completat inainte de a apasa butonul \"OK\".\n" +
+                    "Te rugam sa completezi campul!");
+            alert.showAndWait();
+        } else {
+            nrPublicNrFaniProgramare = Integer.parseInt(nrPublicNrFani.getText());
+            System.out.println(nrPublicNrFaniProgramare);
+        }
     }
 
     @FXML
@@ -312,7 +333,7 @@ public class FereastraClient {
 
     @FXML
     private void actionForDorescOfertaButton() {
-        /*Servicii s = checkServicii();
+        Servicii s = checkServicii();
         boolean confirm;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("ConfirmBox.fxml"));
@@ -330,7 +351,7 @@ public class FereastraClient {
             System.out.println(confirm);
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
     }
 
     @FXML
