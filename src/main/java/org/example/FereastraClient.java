@@ -10,9 +10,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import servicii.Servicii;
-import servicii.foto.SedintaFotoCuplu;
-import servicii.foto.SedintaFotoSimpla;
-import servicii.promo.PachetPromo;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -30,6 +27,7 @@ public class FereastraClient {
     private boolean albumFotoProgramare = false;
     private int nrSecundeFilmareProgramare;
     private int nrPublicNrFaniProgramare;
+    private String dataProgramare;
     @FXML
     private DatePicker datePicker;
     @FXML
@@ -42,7 +40,6 @@ public class FereastraClient {
     private Button nrFotografiVideografiButton = new Button();
     @FXML
     private ChoiceBox<Integer> nrVideografi = new ChoiceBox<>();
-    private LocalDate data;
     @FXML
     private TextField nrTinuteProduseMinute = new TextField();
     @FXML
@@ -74,37 +71,11 @@ public class FereastraClient {
     @FXML
     private Button helpButton = new Button();
 
-
-
     @FXML
     private void getDate() {
-        datePicker.setConverter(new StringConverter<LocalDate>() {
-            String pattern = "dd/MM/yyyy";
-            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
-            {
-                datePicker.setPromptText(pattern.toLowerCase());
-            }
-
-            @Override
-            public String toString(LocalDate date) {
-                if (date != null) {
-                    return dateFormatter.format(date);
-                } else {
-                    return "";
-                }
-            }
-
-            @Override
-            public LocalDate fromString(String string) {
-                if (string != null && !string.isEmpty()) {
-                    return LocalDate.parse(string, dateFormatter);
-                } else {
-                    return null;
-                }
-            }
-        });
-        System.out.println(datePicker.getValue());
-        data = datePicker.getValue();
+        LocalDate data = datePicker.getValue();
+        String dataProgramare = data.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        System.out.println(dataProgramare);
         datePicker.setDisable(true);
     }
 
@@ -115,6 +86,13 @@ public class FereastraClient {
         nrVideografi.getItems().clear();
         tipSedintaFoto.getItems().clear();
         tipFilmareVideo.getItems().clear();
+        datePicker.setDayCellFactory(picker -> new DateCell() {
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                LocalDate today = LocalDate.now();
+                setDisable(empty || date.compareTo(today) < 0 );
+            }
+        });
 
         PromoFotoVideo.getItems().addAll(
                 "Promo",
@@ -316,7 +294,7 @@ public class FereastraClient {
 
     private Servicii checkServicii() {
         if(tipServiciProgramare.equals("Promo")) {
-            System.out.println(tipServiciFotoProgramare);
+            System.out.println(tipServiciProgramare);
             //return new PachetPromo(",,,,");
         }else if(tipServiciFotoProgramare.equals("Sedinta foto simpla")) {
             System.out.println(tipServiciFotoProgramare);
@@ -346,7 +324,7 @@ public class FereastraClient {
     @FXML
     private void actionForDorescOfertaButton() {
         Servicii s = checkServicii();
-        boolean confirm;
+        boolean confirm = false;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("ConfirmBox.fxml"));
             Parent root = loader.load();
