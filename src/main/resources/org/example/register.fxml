@@ -53,16 +53,29 @@
             <Image url="@photo-1516035069371-29a1b244cc32.jpg" />
          </image>
       </ImageView>
-      <Text fill="WHITE" layoutX="34.0" layoutY="358.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nu vă puteți conecta? Trimiteți un mail la adresa:">
+
+      <Text fill="WHITE" layoutX="34.0" layoutY="345.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pentru orice problemă întâmpinată,">
          <font>
-            <Font name="Avenir Book" size="11.0" />
+            <Font name="Avenir Book" size="9.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="34.0" layoutY="358.0" strokeType="OUTSIDE" strokeWidth="0.0" text="trimiteți un mail la una din următoarele adrese:">
+         <font>
+            <Font name="Avenir Book" size="9.0" />
          </font>
       </Text>
       <Text fill="#cdcdcd" layoutX="34.0" layoutY="375.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ovidiuvinterphotography@gmail.com" underline="true">
          <font>
-            <Font name="Avenir Book" size="11.0" />
+            <Font name="Avenir Book" size="8.0" />
          </font>
       </Text>
+
+      <Text fill="#cdcdcd" layoutX="34.0" layoutY="388.0" strokeType="OUTSIDE" strokeWidth="0.0" text="deian.toplicianu@gmail.com" underline="true">
+         <font>
+            <Font name="Avenir Book" size="8.0" />
+         </font>
+      </Text>
+      
       <Button layoutX="539.0" layoutY="351.0" mnemonicParsing="false" onAction="#backHome" text="Back">
          <font>
             <Font name="Avenir Book" size="10.0" />

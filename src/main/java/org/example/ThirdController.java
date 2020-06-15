@@ -9,6 +9,7 @@ import java.util.Objects;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -61,11 +62,14 @@ public class ThirdController extends Main {
                 actionGoFereastraFotograf();
             }
             else {
+                if(Objects.equals(UserService.check(nume_utilizator, parola), "Client")) {
+                    actionGoFereastraClient();
+            }
+            else {
                 LoginMsg.setText("Incorrect credentials");
             }
         }
-        if(Objects.equals(UserService.check(nume_utilizator, parola), "Client")) {
-            LoginMsg.setText("Interfata indisponibila momentan");
+
         }
 
     }
@@ -78,6 +82,22 @@ public class ThirdController extends Main {
 
             FourthController fourthController = loader.getController();
             fourthController.myFunction(userText.getText());
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            //stage.setTitle("Nou");
+            stage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void actionGoFereastraClient() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("FereastraClient.fxml"));
+            Parent root = loader.load();
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
