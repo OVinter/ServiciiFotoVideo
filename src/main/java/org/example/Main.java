@@ -4,20 +4,29 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.scene.text.Text;
+import javafx.scene.Group;
 
+import org.example.services.UserService;
 import java.io.IOException;
+
 
 /**
  * JavaFX App
  */
 public class Main extends Application {
 
+    public static String wlcmName;
     private static Scene scene;
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"));
+
+        UserService.loadUsersFromFile();
+
+        scene = new Scene(loadFXML("lgnbf"));
         stage.setScene(scene);
         stage.show();
     }
