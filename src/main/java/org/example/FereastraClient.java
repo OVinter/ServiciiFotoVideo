@@ -1,5 +1,6 @@
 package org.example;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,14 +9,26 @@ import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import javafx.util.StringConverter;
-import servicii.Servicii;
 
-import java.io.IOException;
+//import jdk.nashorn.internal.parser.JSONParser;
+import org.example.services.FileSystemService;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.ParseException;
+import servicii.Servicii;
+import servicii.foto.SedintaFotoSimpla;
+import servicii.video.VideoAdvertising;
+
+import org.json.simple.parser.JSONParser;
+import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Files;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Iterator;
 
-public class FereastraClient {
+
+public class FereastraClient extends Main {
 
     private String tipServiciProgramare;
     private String tipServiciFotoProgramare;
@@ -71,12 +84,58 @@ public class FereastraClient {
     @FXML
     private Button helpButton = new Button();
 
+    private String sir;
+
+
+    //FileWriter file = new FileWriter("agenda.json");
+
+    JSONObject serviciiObject = new JSONObject();
+
+    public FereastraClient() throws IOException {
+    }
+
+
+    //private static final Path DATES_PATH = FileSystemService.getPathToFile("config", "agenda.json");
+
+    private static void ReadFromAgenda (String d) {
+
+        JSONParser parser = new JSONParser();
+        try {
+            FileReader file = new FileReader("agenda.json");
+            JSONObject json =  (JSONObject) parser.parse(file);
+
+            JSONArray data = (JSONArray) json.get("Data programare");
+            Iterator i = data.iterator();
+
+            while(i.hasNext()) {
+                if(d.equals(i)) {
+                    System.out.println("Data exista");
+                }
+                else {
+                    System.out.println("Nu exista");
+                }
+            }
+
+
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+
+
     @FXML
-    private void getDate() {
+    private void getDate() throws IOException {
         LocalDate data = datePicker.getValue();
-        String dataProgramare = data.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        System.out.println(dataProgramare);
+        dataProgramare = data.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
+        ReadFromAgenda(dataProgramare);
+
+
         datePicker.setDisable(true);
+
     }
 
     @FXML
@@ -124,7 +183,9 @@ public class FereastraClient {
     @FXML
     private <T> void getStringChoice(ChoiceBox<T> choiceBox) {
         T optiune = choiceBox.getValue();
-        System.out.println(optiune);
+        //System.out.println(optiune);
+        //sir = sir + optiune + "\n";
+
     }
 
     @FXML
@@ -225,7 +286,9 @@ public class FereastraClient {
             alert.showAndWait();
         } else {
             nrTinuteProduseMinuteProgramare = Integer.parseInt(nrTinuteProduseMinute.getText());
-            System.out.println(nrTinuteProduseMinuteProgramare);
+            //System.out.println(nrTinuteProduseMinuteProgramare);
+            //sir = sir + nrTinuteProduseMinuteProgramare + "\n";
+
         }
     }
 
@@ -240,7 +303,9 @@ public class FereastraClient {
             alert.showAndWait();
         } else {
             nrSecundeFilmareProgramare = Integer.parseInt(nrSecundeFilmare.getText());
-            System.out.println(nrSecundeFilmareProgramare);
+            //System.out.println(nrSecundeFilmareProgramare);
+            //sir = sir + nrSecundeFilmareProgramare + "\n";
+
         }
     }
 
@@ -255,7 +320,9 @@ public class FereastraClient {
             alert.showAndWait();
         } else {
             nrPublicNrFaniProgramare = Integer.parseInt(nrPublicNrFani.getText());
-            System.out.println(nrPublicNrFaniProgramare);
+            //System.out.println(nrPublicNrFaniProgramare);
+            //sir = sir + nrPublicNrFaniProgramare + "\n";
+
         }
     }
 
@@ -265,7 +332,9 @@ public class FereastraClient {
             studioProgramare = true;
         else
             studioProgramare = false;
-        System.out.println(studioProgramare);
+        //System.out.println(studioProgramare);
+        //sir = sir + "Studio foto programare: " + studioProgramare + "\n";
+
     }
 
     @FXML
@@ -274,7 +343,9 @@ public class FereastraClient {
             albumFotoProgramare = true;
         else
             albumFotoProgramare = false;
-        System.out.println(albumFotoProgramare);
+        //System.out.println(albumFotoProgramare);
+        //sir = sir + "Album foto programare: " + albumFotoProgramare + "\n";
+
     }
 
     @FXML
@@ -294,42 +365,92 @@ public class FereastraClient {
 
     private Servicii checkServicii() {
         if(tipServiciProgramare.equals("Promo")) {
-            System.out.println(tipServiciProgramare);
+            //System.out.println(tipServiciProgramare);
+            //sir = sir + tipServiciProgramare + "\n";
+            serviciiObject.put("Tip servicii programare", tipServiciProgramare);
+
             //return new PachetPromo(",,,,");
         }else if(tipServiciFotoProgramare.equals("Sedinta foto simpla")) {
-            System.out.println(tipServiciFotoProgramare);
+            //System.out.println(tipServiciFotoProgramare);
+            //sir = sir + tipServiciFotoProgramare + "\n";
+            //serviciiObject.put("Sedinta foto simpla", tipServiciFotoProgramare);
+            return new SedintaFotoSimpla(userNume, dataProgramare, studioProgramare, albumFotoProgramare, nrTinuteProduseMinuteProgramare);
+
             //new SedintaFotoSimpla(,,,,);
         }else if(tipServiciFotoProgramare.equals("Sedinta foto familie")) {
-            System.out.println(tipServiciFotoProgramare);
+            //System.out.println(tipServiciFotoProgramare);
+            //sir = sir + tipServiciFotoProgramare + "\n";
+            serviciiObject.put("Sedinta foto familie", tipServiciFotoProgramare);
+
             //new SedintaFotoFamilie(,,,,);
         }else if(tipServiciFotoProgramare.equals("Sedinta foto cuplu")) {
-            System.out.println(tipServiciFotoProgramare);
+           // System.out.println(tipServiciFotoProgramare);
+            //sir = sir + tipServiciFotoProgramare + "\n";
+            serviciiObject.put("Sedinta foto cuplu", tipServiciFotoProgramare);
+
             //new SedintaFotoCuplu(,,,,,);
         }else if(tipServiciFotoProgramare.equals("Sedinta foto produse")) {
-            System.out.println(tipServiciFotoProgramare);
+            //System.out.println(tipServiciFotoProgramare);
+            //sir = sir + tipServiciFotoProgramare + "\n";
+            serviciiObject.put("Sedinta foto produse", tipServiciFotoProgramare);
+
             //new SedintaFotoProdus(,,,,);
         }else if(tipServiciVideoProgramare.equals("Video highlights")) {
-            System.out.println(tipServiciVideoProgramare);
+            //System.out.println(tipServiciVideoProgramare);
+            //sir = sir + tipServiciVideoProgramare + "\n";
+            serviciiObject.put("Video highlights", tipServiciVideoProgramare);
+
             //new videoHighlights(,,,,);
         }else if(tipServiciVideoProgramare.equals("Video muzical")) {
-            System.out.println(tipServiciVideoProgramare);
+            //System.out.println(tipServiciVideoProgramare);
+            //sir = sir + tipServiciVideoProgramare + "\n";
+            serviciiObject.put("Video muzical", tipServiciVideoProgramare);
+
             //new videoMuzical(,,,,);
         }else if(tipServiciVideoProgramare.equals("Video advertising")) {
-            System.out.println(tipServiciVideoProgramare);
+            //System.out.println(tipServiciVideoProgramare);
+            //sir = sir + tipServiciVideoProgramare + "\n";
             //new videoAdvertising(,,,,);
+            serviciiObject.put("Video advertising", tipServiciVideoProgramare);
+            return new VideoAdvertising(userNume, dataProgramare, nrSecundeFilmareProgramare, nrPublicNrFaniProgramare);
         }
         return null;
     }
 
     @FXML
     private void actionForDorescOfertaButton() {
+
+
+        serviciiObject.put("Nume client", userNume);
+        serviciiObject.put("Data programare", dataProgramare);
+
         Servicii s = checkServicii();
+        serviciiObject.put("Servicii", s.informatiiServici());
         boolean confirm = false;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("ConfirmBox.fxml"));
             Parent root = loader.load();
 
-            //The following both lines are the only addition we need to pass the arguments
+
+            try {
+                FileWriter file = new FileWriter("agenda.json", true);
+
+                file.write("\n");
+                file.write(serviciiObject.toJSONString());
+                file.flush();
+
+                file.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            /*try {
+                FileReader fileReader = new FileReader("agenda.json");
+                //JSONParser jsonParser = new JSONParser();
+                JSONObject json = (JSONObject) parser.pars
+            }*/
+
+
             ConfirmBox confirmBox = loader.getController();
             confirmBox.setText("aaa");//s.informatiiServici());
 

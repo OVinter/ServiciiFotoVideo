@@ -1,6 +1,7 @@
 package org.example;
 
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -19,6 +20,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
 import javafx.stage.Stage;
+//import jdk.nashorn.internal.parser.JSONParser;
 import org.apache.commons.io.FileUtils;
 import org.example.exceptions.UsernameAlreadyExistsException;
 import org.example.model.User;
@@ -26,10 +28,13 @@ import org.example.services.FileSystemService;
 import org.example.services.UserService;
 import javafx.fxml.FXMLLoader;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
 import org.example.Main;
 
 import javafx.event.ActionEvent;
-
+import org.json.simple.parser.ParseException;
 
 
 public class ThirdController extends Main {
@@ -52,17 +57,18 @@ public class ThirdController extends Main {
         String parola = passText.getText();
 
         wlcmName = nume_utilizator;
+        userNume = nume_utilizator;
 
 
         if (nume_utilizator == null || nume_utilizator.isEmpty() || parola == null || parola.isEmpty()) {
             LoginMsg.setText("Username and password are required!");
         }
         else {
-            if(Objects.equals(UserService.check(nume_utilizator, parola), "Fotograf")) {
+            if(Objects.equals(UserService.check(nume_utilizator, parola), role.getValue().toString()) && Objects.equals(role.getValue().toString(), "Fotograf")) {
                 actionGoFereastraFotograf();
             }
             else {
-                if(Objects.equals(UserService.check(nume_utilizator, parola), "Client")) {
+                if(Objects.equals(UserService.check(nume_utilizator, parola), role.getValue().toString()) && Objects.equals(role.getValue().toString(), "Client")) {
                     actionGoFereastraClient();
             }
             else {
@@ -80,8 +86,19 @@ public class ThirdController extends Main {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("fotograf1st.fxml"));
             Parent root = loader.load();
 
+
             FourthController fourthController = loader.getController();
             fourthController.myFunction(userText.getText());
+
+            /*JSONParser jsonParser = new JSONParser();
+
+            FileReader reader = new FileReader("agenda.json");
+            Object obj = jsonParser.parse(reader);*/
+
+            //fourthController.showAgenda(sir);
+
+
+
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));

@@ -9,6 +9,8 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
 import javafx.scene.text.Text;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -22,6 +24,7 @@ public class FourthController extends Main {
 
     public Text firstwlmnume;
     public Button butonout;
+    public TextArea agenda;
 
     public void myFunction(String text) {
         firstwlmnume.setText(text);
@@ -33,6 +36,11 @@ public class FourthController extends Main {
 
         Stage stage = (Stage)butonout.getScene().getWindow();
         stage.close();
+    }
+
+    public void showAgenda(String text) {
+        agenda.setText(text);
+
     }
 
 
