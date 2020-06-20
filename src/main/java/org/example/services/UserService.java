@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import org.apache.commons.io.FileUtils;
 
 import org.example.exceptions.CouldNotWriteUsersException;
+import org.example.exceptions.FotografAlreadyExistsException;
 import org.example.exceptions.UsernameAlreadyExistsException;
 import org.example.model.User;
 
@@ -37,8 +38,9 @@ public class UserService {
         });
     }
 
-    public static void addUser(String username, String password, String role) throws UsernameAlreadyExistsException {
+    public static void addUser(String username, String password, String role) throws UsernameAlreadyExistsException, FotografAlreadyExistsException {
         checkUserDoesNotAlreadyExist(username);
+        checkUserFotografDoesNotAlreadyExist(role);
         users.add(new User(username, encodePassword(username, password), role));
         persistUsers();
     }
@@ -47,6 +49,13 @@ public class UserService {
         for (User user : users) {
             if (Objects.equals(username, user.getUsername()))
                 throw new UsernameAlreadyExistsException(username);
+        }
+    }
+
+    private static void checkUserFotografDoesNotAlreadyExist(String role) throws FotografAlreadyExistsException {
+        for (User user : users) {
+            if(Objects.equals(role, "Fotograf"))
+                throw new FotografAlreadyExistsException(role);
         }
     }
 
