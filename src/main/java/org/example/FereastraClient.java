@@ -9,7 +9,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-//import jdk.nashorn.internal.parser.JSONParser;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
@@ -86,15 +85,7 @@ public class FereastraClient extends Main {
     @FXML
     private Button helpButton = new Button();
 
-    private String sir;
-
-
-    //FileWriter file = new FileWriter("agenda.json");
-
     JSONObject serviciiObject = new JSONObject();
-
-    public FereastraClient() throws IOException {
-    }
 
     private static void ReadFromAgenda (String d) {
         JSONParser jsonParser = new JSONParser();
@@ -102,12 +93,9 @@ public class FereastraClient extends Main {
         try (FileReader reader = new FileReader("agenda.json"))
         {
             Object obj = jsonParser.parse(reader);
-
-
             JSONArray programari = (JSONArray) obj;
             System.out.println(programari);
 
-            //Iterate over employee array
             programari.forEach( emp -> parseProgramariObject( (JSONObject) emp ) );
 
         } catch (FileNotFoundException e) {
@@ -141,7 +129,6 @@ public class FereastraClient extends Main {
         ReadFromAgenda(dataProgramare);
 
         datePicker.setDisable(false);
-
     }
 
 
@@ -185,6 +172,12 @@ public class FereastraClient extends Main {
         tipSedintaFoto.setValue("Sedinta foto simpla");
         tipFilmareVideo.setValue("Video highlights");
         nrTinuteProduseMinute.setPromptText("Nr Tinute/Produse/Minute");
+        albumFoto.setSelected(false);
+        studio.setSelected(false);
+        albumFotoProgramare = false;
+        studioProgramare = false;
+        nrSecundeFilmare.setPromptText("Numar secunde filmare");
+        nrPublicNrFani.setPromptText("TargetPublic/NumarFani");
     }
 
     @FXML
@@ -192,7 +185,6 @@ public class FereastraClient extends Main {
         T optiune = choiceBox.getValue();
         //System.out.println(optiune);
         //sir = sir + optiune + "\n";
-
     }
 
     @FXML
@@ -258,7 +250,6 @@ public class FereastraClient extends Main {
             nrTinuteProduseMinute.setDisable(false);
             nrTinuteProduseMinuteButton.setDisable(false);
         }
-
     }
 
     @FXML
@@ -293,9 +284,6 @@ public class FereastraClient extends Main {
             alert.showAndWait();
         } else {
             nrTinuteProduseMinuteProgramare = Integer.parseInt(nrTinuteProduseMinute.getText());
-            //System.out.println(nrTinuteProduseMinuteProgramare);
-            //sir = sir + nrTinuteProduseMinuteProgramare + "\n";
-
         }
     }
 
@@ -310,9 +298,6 @@ public class FereastraClient extends Main {
             alert.showAndWait();
         } else {
             nrSecundeFilmareProgramare = Integer.parseInt(nrSecundeFilmare.getText());
-            //System.out.println(nrSecundeFilmareProgramare);
-            //sir = sir + nrSecundeFilmareProgramare + "\n";
-
         }
     }
 
@@ -327,9 +312,6 @@ public class FereastraClient extends Main {
             alert.showAndWait();
         } else {
             nrPublicNrFaniProgramare = Integer.parseInt(nrPublicNrFani.getText());
-            //System.out.println(nrPublicNrFaniProgramare);
-            //sir = sir + nrPublicNrFaniProgramare + "\n";
-
         }
     }
 
@@ -339,9 +321,6 @@ public class FereastraClient extends Main {
             studioProgramare = true;
         else
             studioProgramare = false;
-        //System.out.println(studioProgramare);
-        //sir = sir + "Studio foto programare: " + studioProgramare + "\n";
-
     }
 
     @FXML
@@ -350,9 +329,6 @@ public class FereastraClient extends Main {
             albumFotoProgramare = true;
         else
             albumFotoProgramare = false;
-        //System.out.println(albumFotoProgramare);
-        //sir = sir + "Album foto programare: " + albumFotoProgramare + "\n";
-
     }
 
     @FXML
@@ -376,29 +352,22 @@ public class FereastraClient extends Main {
         } else if (tipServiciProgramare.equals("Foto")) {
             if (tipServiciFotoProgramare.equals("Sedinta foto simpla")) {
                 return new SedintaFotoSimpla(userNume, dataProgramare, studioProgramare, albumFotoProgramare, nrTinuteProduseMinuteProgramare);
-
             } else if (tipServiciFotoProgramare.equals("Sedinta foto familie")) {
                 return new SedintaFotoFamilie(userNume, dataProgramare, studioProgramare, albumFotoProgramare, nrTinuteProduseMinuteProgramare);
-
             } else if (tipServiciFotoProgramare.equals("Sedinta foto cuplu")) {
                 return new SedintaFotoCuplu(userNume, dataProgramare, studioProgramare, albumFotoProgramare);
-
             } else if (tipServiciFotoProgramare.equals("Sedinta foto produse")) {
                 return new SedintaFotoProdus(userNume, dataProgramare, studioProgramare, albumFotoProgramare, nrTinuteProduseMinuteProgramare);
             }
-        }
-        else if(tipServiciProgramare.equals("Video")) {
+        } else if(tipServiciProgramare.equals("Video")) {
             if (tipServiciVideoProgramare.equals("Video highlights")) {
                 return new VideoHighlights(userNume, dataProgramare, nrSecundeFilmareProgramare);
-
             } else if (tipServiciVideoProgramare.equals("Video muzical")) {
                 return new VideoMuzical(userNume, dataProgramare, nrSecundeFilmareProgramare, nrPublicNrFaniProgramare);
-
             } else if (tipServiciVideoProgramare.equals("Video advertising")) {
                 return new VideoAdvertising(userNume, dataProgramare, nrSecundeFilmareProgramare, nrPublicNrFaniProgramare);
             }
         }
-
         return null;
     }
 
@@ -415,45 +384,41 @@ public class FereastraClient extends Main {
                 e.printStackTrace();
             }
 
-            serviciiObject.put("Nume client", userNume);
-            serviciiObject.put("Data programare", dataProgramare);
-            Servicii s = checkServicii();
-            serviciiObject.put("Servicii", s.informatiiServici());
-            //serviciiObject.put("Agenda", programare);
-            array.add(serviciiObject);
-            //System.out.println(array);
-            boolean confirm = false;
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("ConfirmBox.fxml"));
-                Parent root = loader.load();
+        serviciiObject.put("Nume client", userNume);
+        serviciiObject.put("Data programare", dataProgramare);
+        Servicii s = checkServicii();
+        serviciiObject.put("Servicii", s.informatiiServici());
+        array.add(serviciiObject);
+        boolean confirm = false;
 
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ConfirmBox.fxml"));
+            Parent root = loader.load();
+            ConfirmBox confirmBox = loader.getController();
+            confirmBox.setText(s.informatiiServici());
 
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("-- Confirmare servici dorit --");
+            stage.showAndWait();
+            confirm = confirmBox.isAnswer();
+            System.out.println(confirm);
+            if(confirm == true) {
                 try {
                     FileWriter file = new FileWriter("agenda.json");
                     file.write(array.toJSONString());
                     file.flush();
-
                     file.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
-                ConfirmBox confirmBox = loader.getController();
-                confirmBox.setText("aaa");//s.informatiiServici());
-
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root));
-                stage.setTitle("-- Confirmare servici dorit --");
-                stage.showAndWait();
-                confirm = confirmBox.isAnswer();
-                System.out.println(confirm);
-            } catch (IOException e) {
-                e.printStackTrace();
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+    }
 
-
-        @FXML
+    @FXML
     public void initialize() {
         addDataInChoiceBox();
         datePicker.setDisable(false);
@@ -475,5 +440,4 @@ public class FereastraClient extends Main {
         nrPublicNrFani.setDisable(true);
         nrPublicNrFaniButton.setDisable(true);
     }
-
 }
