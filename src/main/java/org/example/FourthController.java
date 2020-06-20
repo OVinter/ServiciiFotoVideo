@@ -3,10 +3,7 @@ package org.example;
 import javafx.fxml.FXML;
 
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.text.Text;
 
 import java.io.FileNotFoundException;
@@ -29,6 +26,7 @@ public class FourthController extends Main {
     public Text firstwlmnume;
     public Button butonout;
     public TextArea agenda;
+
     public Button batan;
 
     public void myFunction(String text) {
@@ -43,7 +41,8 @@ public class FourthController extends Main {
         stage.close();
     }
 
-    /*public void showAgenda() {
+
+    public void showAgenda() {
 
         JSONParser jsonParser = new JSONParser();
 
@@ -52,13 +51,11 @@ public class FourthController extends Main {
             Object obj = jsonParser.parse(reader);
 
 
-            JSONArray programari = (JSONArray) obj;
-            agenda.setText(programari.toString());
-
-            //programs = programari.toString();
+            JSONArray programari_agenda = (JSONArray) obj;
 
             //Iterate over employee array
-            //programari.forEach( emp -> parseProgramariObject( (JSONObject) emp ) );
+            agenda.setWrapText(true);
+            programari_agenda.forEach( emp -> agenda.appendText(parseProgramariAgendaObject( (JSONObject) emp ) ));
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -68,7 +65,15 @@ public class FourthController extends Main {
             e.printStackTrace();
         }
 
-    }*/
+    }
+
+    private static String parseProgramariAgendaObject(JSONObject programari) {
+        String nume = (String) programari.get("Nume client");
+        String data = (String) programari.get("Data programare");
+        String detalii = (String) programari.get("Servicii");
+
+        return "Client: " + nume + "\n" + "Data progarmare: " + data + "\n" + "Detalii: " + detalii + "\n \n";
+    }
 
 
 }

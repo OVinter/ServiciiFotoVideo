@@ -100,8 +100,6 @@ public class FereastraClient extends Main {
             JSONArray programari = (JSONArray) obj;
             System.out.println(programari);
 
-            programs = programari.toString();
-
             //Iterate over employee array
             programari.forEach( emp -> parseProgramariObject( (JSONObject) emp ) );
 
