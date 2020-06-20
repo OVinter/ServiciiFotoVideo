@@ -9,7 +9,7 @@ public class FotografAlreadyExistsException extends Exception {
         this.rol = rol;
     }
 
-    public String getUsername() {
+    public String getRol() {
         return rol;
     }
 }
