@@ -7,6 +7,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
+import org.example.exceptions.FotografAlreadyExistsException;
 import org.example.exceptions.UsernameAlreadyExistsException;
 import org.example.services.UserService;
 
@@ -25,7 +26,7 @@ public class SecondaryController {
 
     @FXML
     public void initialize() {
-        role.getItems().addAll("Client");
+        role.getItems().addAll("Fotograf", "Client");
     }
 
     @FXML
@@ -38,7 +39,7 @@ public class SecondaryController {
             try {
                 UserService.addUser(userText.getText(), passText.getText(), (String) role.getValue());
                 LoginMsg.setText("Account created successfully!");
-            } catch (UsernameAlreadyExistsException e) {
+            } catch (UsernameAlreadyExistsException | FotografAlreadyExistsException e) {
                 LoginMsg.setText(e.getMessage());
             }
         }
