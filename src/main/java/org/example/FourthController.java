@@ -19,12 +19,17 @@ import java.util.Scanner;
 import javafx.stage.Stage;
 import org.example.Main;
 import org.example.services.UserService;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 public class FourthController extends Main {
 
     public Text firstwlmnume;
     public Button butonout;
     public TextArea agenda;
+    public Button batan;
 
     public void myFunction(String text) {
         firstwlmnume.setText(text);
@@ -38,10 +43,32 @@ public class FourthController extends Main {
         stage.close();
     }
 
-    public void showAgenda(String text) {
-        agenda.setText(text);
+    /*public void showAgenda() {
 
-    }
+        JSONParser jsonParser = new JSONParser();
+
+        try (FileReader reader = new FileReader("agenda.json"))
+        {
+            Object obj = jsonParser.parse(reader);
+
+
+            JSONArray programari = (JSONArray) obj;
+            agenda.setText(programari.toString());
+
+            //programs = programari.toString();
+
+            //Iterate over employee array
+            //programari.forEach( emp -> parseProgramariObject( (JSONObject) emp ) );
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+    }*/
 
 
 }

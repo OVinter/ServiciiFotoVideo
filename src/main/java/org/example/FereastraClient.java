@@ -1,6 +1,5 @@
 package org.example;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,7 +10,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 //import jdk.nashorn.internal.parser.JSONParser;
-import org.example.services.FileSystemService;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
@@ -21,11 +19,8 @@ import servicii.video.VideoAdvertising;
 
 import org.json.simple.parser.JSONParser;
 import java.io.*;
-import java.nio.file.Path;
-import java.nio.file.Files;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Iterator;
 
 
 public class FereastraClient extends Main {
@@ -40,7 +35,7 @@ public class FereastraClient extends Main {
     private boolean albumFotoProgramare = false;
     private int nrSecundeFilmareProgramare;
     private int nrPublicNrFaniProgramare;
-    private String dataProgramare;
+    private static String dataProgramare;
     @FXML
     private DatePicker datePicker;
     @FXML
@@ -94,49 +89,56 @@ public class FereastraClient extends Main {
     public FereastraClient() throws IOException {
     }
 
-
-    //private static final Path DATES_PATH = FileSystemService.getPathToFile("config", "agenda.json");
-
     private static void ReadFromAgenda (String d) {
+        JSONParser jsonParser = new JSONParser();
 
-        JSONParser parser = new JSONParser();
-        try {
-            FileReader file = new FileReader("agenda.json");
-            JSONObject json =  (JSONObject) parser.parse(file);
-
-            JSONArray data = (JSONArray) json.get("Data programare");
-            Iterator i = data.iterator();
-
-            while(i.hasNext()) {
-                if(d.equals(i)) {
-                    System.out.println("Data exista");
-                }
-                else {
-                    System.out.println("Nu exista");
-                }
-            }
+        try (FileReader reader = new FileReader("agenda.json"))
+        {
+            Object obj = jsonParser.parse(reader);
 
 
-        } catch (IOException | ParseException e) {
+            JSONArray programari = (JSONArray) obj;
+            System.out.println(programari);
+
+            programs = programari.toString();
+
+            //Iterate over employee array
+            programari.forEach( emp -> parseProgramariObject( (JSONObject) emp ) );
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
             e.printStackTrace();
         }
 
     }
 
 
-
+    private static void parseProgramariObject(JSONObject programari) {
+        String data = (String) programari.get("Data programare");
+        System.out.println(data);
+        if(data.equals(dataProgramare)) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("Aceasta data este rezervata!");
+            alert.setContentText("Aceasta data este rezervata in agenda fotografului. Te rugam alege alta data!");
+            alert.showAndWait();
+        }
+    }
 
     @FXML
-    private void getDate() throws IOException {
+    private void getDate() {
         LocalDate data = datePicker.getValue();
         dataProgramare = data.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
         ReadFromAgenda(dataProgramare);
 
-
-        datePicker.setDisable(true);
+        datePicker.setDisable(false);
 
     }
+
 
     @FXML
     public void addDataInChoiceBox() {
@@ -419,53 +421,56 @@ public class FereastraClient extends Main {
 
     @FXML
     private void actionForDorescOfertaButton() {
-
-
-        serviciiObject.put("Nume client", userNume);
-        serviciiObject.put("Data programare", dataProgramare);
-
-        Servicii s = checkServicii();
-        serviciiObject.put("Servicii", s.informatiiServici());
-        boolean confirm = false;
+        JSONParser parser = new JSONParser();
+        JSONArray array = new JSONArray();
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("ConfirmBox.fxml"));
-            Parent root = loader.load();
+            FileReader file = new FileReader("agenda.json");
+            JSONArray json =  (JSONArray) parser.parse(file);
+            array = (JSONArray) json;
 
-
-            try {
-                FileWriter file = new FileWriter("agenda.json", true);
-
-                file.write("\n");
-                file.write(serviciiObject.toJSONString());
-                file.flush();
-
-                file.close();
-            } catch (IOException e) {
+            } catch (IOException | ParseException e) {
                 e.printStackTrace();
             }
 
-            /*try {
-                FileReader fileReader = new FileReader("agenda.json");
-                //JSONParser jsonParser = new JSONParser();
-                JSONObject json = (JSONObject) parser.pars
-            }*/
+            serviciiObject.put("Nume client", userNume);
+            serviciiObject.put("Data programare", dataProgramare);
+            Servicii s = checkServicii();
+            serviciiObject.put("Servicii", s.informatiiServici());
+            //serviciiObject.put("Agenda", programare);
+            array.add(serviciiObject);
+            //System.out.println(array);
+            boolean confirm = false;
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("ConfirmBox.fxml"));
+                Parent root = loader.load();
 
 
-            ConfirmBox confirmBox = loader.getController();
-            confirmBox.setText("aaa");//s.informatiiServici());
+                try {
+                    FileWriter file = new FileWriter("agenda.json");
+                    file.write(array.toJSONString());
+                    file.flush();
 
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setTitle("-- Confirmare servici dorit --");
-            stage.showAndWait();
-            confirm = confirmBox.isAnswer();
-            System.out.println(confirm);
-        } catch (IOException e) {
-            e.printStackTrace();
+                    file.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                ConfirmBox confirmBox = loader.getController();
+                confirmBox.setText("aaa");//s.informatiiServici());
+
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.setTitle("-- Confirmare servici dorit --");
+                stage.showAndWait();
+                confirm = confirmBox.isAnswer();
+                System.out.println(confirm);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-    }
 
-    @FXML
+
+        @FXML
     public void initialize() {
         addDataInChoiceBox();
         datePicker.setDisable(false);

@@ -21,6 +21,7 @@ public class Main extends Application {
     public static String wlcmName;
     private static Scene scene;
     public static String userNume;
+    public static String programs;
 
     @Override
     public void start(Stage stage) throws IOException {
