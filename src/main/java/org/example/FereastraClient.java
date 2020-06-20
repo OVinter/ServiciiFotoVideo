@@ -14,10 +14,17 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import servicii.Servicii;
+import servicii.foto.SedintaFotoCuplu;
+import servicii.foto.SedintaFotoFamilie;
+import servicii.foto.SedintaFotoProdus;
 import servicii.foto.SedintaFotoSimpla;
+import servicii.promo.PachetPromo;
 import servicii.video.VideoAdvertising;
 
 import org.json.simple.parser.JSONParser;
+import servicii.video.VideoHighlights;
+import servicii.video.VideoMuzical;
+
 import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -365,55 +372,33 @@ public class FereastraClient extends Main {
 
     private Servicii checkServicii() {
         if(tipServiciProgramare.equals("Promo")) {
-            //System.out.println(tipServiciProgramare);
-            //sir = sir + tipServiciProgramare + "\n";
-            serviciiObject.put("Tip servicii programare", tipServiciProgramare);
+            return new PachetPromo(userNume, dataProgramare, nrFotografiProgramare, nrVideografiProgramare);
+        } else if (tipServiciProgramare.equals("Foto")) {
+            if (tipServiciFotoProgramare.equals("Sedinta foto simpla")) {
+                return new SedintaFotoSimpla(userNume, dataProgramare, studioProgramare, albumFotoProgramare, nrTinuteProduseMinuteProgramare);
 
-            //return new PachetPromo(",,,,");
-        }else if(tipServiciFotoProgramare.equals("Sedinta foto simpla")) {
-            //System.out.println(tipServiciFotoProgramare);
-            //sir = sir + tipServiciFotoProgramare + "\n";
-            //serviciiObject.put("Sedinta foto simpla", tipServiciFotoProgramare);
-            return new SedintaFotoSimpla(userNume, dataProgramare, studioProgramare, albumFotoProgramare, nrTinuteProduseMinuteProgramare);
+            } else if (tipServiciFotoProgramare.equals("Sedinta foto familie")) {
+                return new SedintaFotoFamilie(userNume, dataProgramare, studioProgramare, albumFotoProgramare, nrTinuteProduseMinuteProgramare);
 
-            //new SedintaFotoSimpla(,,,,);
-        }else if(tipServiciFotoProgramare.equals("Sedinta foto familie")) {
-            //System.out.println(tipServiciFotoProgramare);
-            //sir = sir + tipServiciFotoProgramare + "\n";
-            serviciiObject.put("Sedinta foto familie", tipServiciFotoProgramare);
+            } else if (tipServiciFotoProgramare.equals("Sedinta foto cuplu")) {
+                return new SedintaFotoCuplu(userNume, dataProgramare, studioProgramare, albumFotoProgramare);
 
-            //new SedintaFotoFamilie(,,,,);
-        }else if(tipServiciFotoProgramare.equals("Sedinta foto cuplu")) {
-           // System.out.println(tipServiciFotoProgramare);
-            //sir = sir + tipServiciFotoProgramare + "\n";
-            serviciiObject.put("Sedinta foto cuplu", tipServiciFotoProgramare);
-
-            //new SedintaFotoCuplu(,,,,,);
-        }else if(tipServiciFotoProgramare.equals("Sedinta foto produse")) {
-            //System.out.println(tipServiciFotoProgramare);
-            //sir = sir + tipServiciFotoProgramare + "\n";
-            serviciiObject.put("Sedinta foto produse", tipServiciFotoProgramare);
-
-            //new SedintaFotoProdus(,,,,);
-        }else if(tipServiciVideoProgramare.equals("Video highlights")) {
-            //System.out.println(tipServiciVideoProgramare);
-            //sir = sir + tipServiciVideoProgramare + "\n";
-            serviciiObject.put("Video highlights", tipServiciVideoProgramare);
-
-            //new videoHighlights(,,,,);
-        }else if(tipServiciVideoProgramare.equals("Video muzical")) {
-            //System.out.println(tipServiciVideoProgramare);
-            //sir = sir + tipServiciVideoProgramare + "\n";
-            serviciiObject.put("Video muzical", tipServiciVideoProgramare);
-
-            //new videoMuzical(,,,,);
-        }else if(tipServiciVideoProgramare.equals("Video advertising")) {
-            //System.out.println(tipServiciVideoProgramare);
-            //sir = sir + tipServiciVideoProgramare + "\n";
-            //new videoAdvertising(,,,,);
-            serviciiObject.put("Video advertising", tipServiciVideoProgramare);
-            return new VideoAdvertising(userNume, dataProgramare, nrSecundeFilmareProgramare, nrPublicNrFaniProgramare);
+            } else if (tipServiciFotoProgramare.equals("Sedinta foto produse")) {
+                return new SedintaFotoProdus(userNume, dataProgramare, studioProgramare, albumFotoProgramare, nrTinuteProduseMinuteProgramare);
+            }
         }
+        else if(tipServiciProgramare.equals("Video")) {
+            if (tipServiciVideoProgramare.equals("Video highlights")) {
+                return new VideoHighlights(userNume, dataProgramare, nrSecundeFilmareProgramare);
+
+            } else if (tipServiciVideoProgramare.equals("Video muzical")) {
+                return new VideoMuzical(userNume, dataProgramare, nrSecundeFilmareProgramare, nrPublicNrFaniProgramare);
+
+            } else if (tipServiciVideoProgramare.equals("Video advertising")) {
+                return new VideoAdvertising(userNume, dataProgramare, nrSecundeFilmareProgramare, nrPublicNrFaniProgramare);
+            }
+        }
+
         return null;
     }
 
