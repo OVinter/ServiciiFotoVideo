@@ -108,7 +108,6 @@ public class FereastraClient extends Main {
 
     }
 
-
     private static void parseProgramariObject(JSONObject programari) {
         String data = (String) programari.get("Data programare");
         System.out.println(data);
@@ -121,6 +120,16 @@ public class FereastraClient extends Main {
         }
     }
 
+    //Functie care ne da valoarea unui choiceBox de orice tip
+    @FXML
+    private <T> void getStringChoice(ChoiceBox<T> choiceBox) {
+        T optiune = choiceBox.getValue();
+        //System.out.println(optiune);
+        //sir = sir + optiune + "\n";
+    }
+
+    //Actions for buttons/datePicker/checkBoxes/choiceBoxes
+
     @FXML
     private void getDate() {
         LocalDate data = datePicker.getValue();
@@ -129,62 +138,6 @@ public class FereastraClient extends Main {
         ReadFromAgenda(dataProgramare);
 
         datePicker.setDisable(false);
-    }
-
-
-    @FXML
-    public void addDataInChoiceBox() {
-        PromoFotoVideo.getItems().clear();
-        nrFotografi.getItems().clear();
-        nrVideografi.getItems().clear();
-        tipSedintaFoto.getItems().clear();
-        tipFilmareVideo.getItems().clear();
-        datePicker.setDayCellFactory(picker -> new DateCell() {
-            public void updateItem(LocalDate date, boolean empty) {
-                super.updateItem(date, empty);
-                LocalDate today = LocalDate.now();
-                setDisable(empty || date.compareTo(today) < 0 );
-            }
-        });
-
-        PromoFotoVideo.getItems().addAll(
-                "Promo",
-                "Foto",
-                "Video"
-        );
-        nrFotografi.getItems().addAll(1, 2);
-        nrVideografi.getItems().addAll(1, 2);
-        tipSedintaFoto.getItems().addAll(
-                "Sedinta foto simpla",
-                "Sedinta foto cuplu",
-                "Sedinta foto familie",
-                "Sedinta foto produse"
-        );
-        tipFilmareVideo.getItems().addAll(
-                "Video highlights",
-                "Video advertising",
-                "Video muzical"
-        );
-
-        PromoFotoVideo.setValue("Promo");
-        nrFotografi.setValue(1);
-        nrVideografi.setValue(1);
-        tipSedintaFoto.setValue("Sedinta foto simpla");
-        tipFilmareVideo.setValue("Video highlights");
-        nrTinuteProduseMinute.setPromptText("Nr Tinute/Produse/Minute");
-        albumFoto.setSelected(false);
-        studio.setSelected(false);
-        albumFotoProgramare = false;
-        studioProgramare = false;
-        nrSecundeFilmare.setPromptText("Numar secunde filmare");
-        nrPublicNrFani.setPromptText("TargetPublic/NumarFani");
-    }
-
-    @FXML
-    private <T> void getStringChoice(ChoiceBox<T> choiceBox) {
-        T optiune = choiceBox.getValue();
-        //System.out.println(optiune);
-        //sir = sir + optiune + "\n";
     }
 
     @FXML
@@ -346,31 +299,6 @@ public class FereastraClient extends Main {
         alert.showAndWait();
     }
 
-    private Servicii checkServicii() {
-        if(tipServiciProgramare.equals("Promo")) {
-            return new PachetPromo(userNume, dataProgramare, nrFotografiProgramare, nrVideografiProgramare);
-        } else if (tipServiciProgramare.equals("Foto")) {
-            if (tipServiciFotoProgramare.equals("Sedinta foto simpla")) {
-                return new SedintaFotoSimpla(userNume, dataProgramare, studioProgramare, albumFotoProgramare, nrTinuteProduseMinuteProgramare);
-            } else if (tipServiciFotoProgramare.equals("Sedinta foto familie")) {
-                return new SedintaFotoFamilie(userNume, dataProgramare, studioProgramare, albumFotoProgramare, nrTinuteProduseMinuteProgramare);
-            } else if (tipServiciFotoProgramare.equals("Sedinta foto cuplu")) {
-                return new SedintaFotoCuplu(userNume, dataProgramare, studioProgramare, albumFotoProgramare);
-            } else if (tipServiciFotoProgramare.equals("Sedinta foto produse")) {
-                return new SedintaFotoProdus(userNume, dataProgramare, studioProgramare, albumFotoProgramare, nrTinuteProduseMinuteProgramare);
-            }
-        } else if(tipServiciProgramare.equals("Video")) {
-            if (tipServiciVideoProgramare.equals("Video highlights")) {
-                return new VideoHighlights(userNume, dataProgramare, nrSecundeFilmareProgramare);
-            } else if (tipServiciVideoProgramare.equals("Video muzical")) {
-                return new VideoMuzical(userNume, dataProgramare, nrSecundeFilmareProgramare, nrPublicNrFaniProgramare);
-            } else if (tipServiciVideoProgramare.equals("Video advertising")) {
-                return new VideoAdvertising(userNume, dataProgramare, nrSecundeFilmareProgramare, nrPublicNrFaniProgramare);
-            }
-        }
-        return null;
-    }
-
     @FXML
     private void actionForDorescOfertaButton() {
         JSONParser parser = new JSONParser();
@@ -417,6 +345,81 @@ public class FereastraClient extends Main {
             e.printStackTrace();
         }
     }
+
+    public Servicii checkServicii() {
+        if(tipServiciProgramare.equals("Promo")) {
+            return new PachetPromo(userNume, dataProgramare, nrFotografiProgramare, nrVideografiProgramare);
+        } else if (tipServiciProgramare.equals("Foto")) {
+            if (tipServiciFotoProgramare.equals("Sedinta foto simpla")) {
+                return new SedintaFotoSimpla(userNume, dataProgramare, studioProgramare, albumFotoProgramare, nrTinuteProduseMinuteProgramare);
+            } else if (tipServiciFotoProgramare.equals("Sedinta foto familie")) {
+                return new SedintaFotoFamilie(userNume, dataProgramare, studioProgramare, albumFotoProgramare, nrTinuteProduseMinuteProgramare);
+            } else if (tipServiciFotoProgramare.equals("Sedinta foto cuplu")) {
+                return new SedintaFotoCuplu(userNume, dataProgramare, studioProgramare, albumFotoProgramare);
+            } else if (tipServiciFotoProgramare.equals("Sedinta foto produse")) {
+                return new SedintaFotoProdus(userNume, dataProgramare, studioProgramare, albumFotoProgramare, nrTinuteProduseMinuteProgramare);
+            }
+        } else if(tipServiciProgramare.equals("Video")) {
+            if (tipServiciVideoProgramare.equals("Video highlights")) {
+                return new VideoHighlights(userNume, dataProgramare, nrSecundeFilmareProgramare);
+            } else if (tipServiciVideoProgramare.equals("Video muzical")) {
+                return new VideoMuzical(userNume, dataProgramare, nrSecundeFilmareProgramare, nrPublicNrFaniProgramare);
+            } else if (tipServiciVideoProgramare.equals("Video advertising")) {
+                return new VideoAdvertising(userNume, dataProgramare, nrSecundeFilmareProgramare, nrPublicNrFaniProgramare);
+            }
+        }
+        return null;
+    }
+
+    @FXML
+    public void addDataInChoiceBox() {
+        PromoFotoVideo.getItems().clear();
+        nrFotografi.getItems().clear();
+        nrVideografi.getItems().clear();
+        tipSedintaFoto.getItems().clear();
+        tipFilmareVideo.getItems().clear();
+        datePicker.setDayCellFactory(picker -> new DateCell() {
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                LocalDate today = LocalDate.now();
+                setDisable(empty || date.compareTo(today) < 0 );
+            }
+        });
+
+        PromoFotoVideo.getItems().addAll(
+                "Promo",
+                "Foto",
+                "Video"
+        );
+        nrFotografi.getItems().addAll(1, 2);
+        nrVideografi.getItems().addAll(1, 2);
+        tipSedintaFoto.getItems().addAll(
+                "Sedinta foto simpla",
+                "Sedinta foto cuplu",
+                "Sedinta foto familie",
+                "Sedinta foto produse"
+        );
+        tipFilmareVideo.getItems().addAll(
+                "Video highlights",
+                "Video advertising",
+                "Video muzical"
+        );
+
+        PromoFotoVideo.setValue("Promo");
+        nrFotografi.setValue(1);
+        nrVideografi.setValue(1);
+        tipSedintaFoto.setValue("Sedinta foto simpla");
+        tipFilmareVideo.setValue("Video highlights");
+        nrTinuteProduseMinute.setPromptText("Nr Tinute/Produse/Minute");
+        albumFoto.setSelected(false);
+        studio.setSelected(false);
+        albumFotoProgramare = false;
+        studioProgramare = false;
+        nrSecundeFilmare.setPromptText("Numar secunde filmare");
+        nrPublicNrFani.setPromptText("TargetPublic/NumarFani");
+    }
+
+    //initializare FereastraClient
 
     @FXML
     public void initialize() {

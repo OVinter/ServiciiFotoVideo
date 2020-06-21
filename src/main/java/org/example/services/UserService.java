@@ -11,7 +11,6 @@ import org.example.exceptions.FotografAlreadyExistsException;
 import org.example.exceptions.UsernameAlreadyExistsException;
 import org.example.model.User;
 
-import javax.jws.soap.SOAPBinding;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;

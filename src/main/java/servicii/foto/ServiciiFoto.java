@@ -19,7 +19,7 @@ public abstract class ServiciiFoto implements Servicii {
         this.numeClient = numeClient;
         this.data = data;
         this.studio = studio;
-        this.stick = true;
+        //this.stick = true;
         this.album = album;
     }
 
@@ -27,10 +27,6 @@ public abstract class ServiciiFoto implements Servicii {
     public double getCostTotal() {
         return this.pretTotal;
     }
-
-    /*public boolean isAlbum() {
-        return album;
-    }*/
 
     @Override
     public String getData() {
@@ -52,5 +48,13 @@ public abstract class ServiciiFoto implements Servicii {
         if (album)
             return pretAlbum;
         return 0;
+    }
+
+    public boolean isStudio() {
+        return studio;
+    }
+
+    public boolean isAlbum() {
+        return album;
     }
 }

@@ -1,0 +1,26 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+ServiciiFotoVideo,servicii.video,ServiciiVideo,0,26,0,0,0,10,0,5,0,5
+ServiciiFotoVideo,servicii.video,VideoMuzical,0,39,0,0,0,5,0,2,0,2
+ServiciiFotoVideo,servicii.video,VideoAdvertising,0,40,0,0,0,5,0,2,0,2
+ServiciiFotoVideo,servicii.video,VideoHighlights,0,35,0,0,0,5,0,2,0,2
+ServiciiFotoVideo,org.example.model,User,125,0,10,0,27,0,16,0,11,0
+ServiciiFotoVideo,org.example.services,UserService.new TypeReference() {...},3,0,0,0,1,0,1,0,1,0
+ServiciiFotoVideo,org.example.services,FileSystemService,41,0,2,0,8,0,6,0,5,0
+ServiciiFotoVideo,org.example.services,UserService,183,0,16,0,44,0,18,0,10,0
+ServiciiFotoVideo,servicii.foto,SedintaFotoSimpla,0,145,0,14,0,16,0,9,0,2
+ServiciiFotoVideo,servicii.foto,SedintaFotoCuplu,0,147,0,14,0,17,0,9,0,2
+ServiciiFotoVideo,servicii.foto,ServiciiFoto,2,40,1,1,1,15,1,8,0,8
+ServiciiFotoVideo,servicii.foto,SedintaFotoFamilie,0,150,0,14,0,17,0,9,0,2
+ServiciiFotoVideo,servicii.foto,SedintaFotoProdus,0,147,0,14,0,16,0,9,0,2
+ServiciiFotoVideo,servicii.promo,PachetPromo,2,382,7,29,1,45,7,16,0,5
+ServiciiFotoVideo,org.example,FereastraClient,1153,0,60,0,261,0,52,0,22,0
+ServiciiFotoVideo,org.example,ThirdController,159,0,16,0,37,0,14,0,6,0
+ServiciiFotoVideo,org.example,Main,43,0,0,0,12,0,5,0,5,0
+ServiciiFotoVideo,org.example,FourthController,134,0,8,0,24,0,10,0,6,0
+ServiciiFotoVideo,org.example,PrimaryController,9,0,0,0,5,0,3,0,3,0
+ServiciiFotoVideo,org.example,ConfirmBox,60,0,0,0,19,0,6,0,6,0
+ServiciiFotoVideo,org.example,FereastraClient.new DateCell() {...},24,0,4,0,5,0,4,0,2,0
+ServiciiFotoVideo,org.example,SecondaryController,68,0,8,0,15,0,8,0,4,0
+ServiciiFotoVideo,org.example.exceptions,UsernameAlreadyExistsException,17,0,0,0,4,0,2,0,2,0
+ServiciiFotoVideo,org.example.exceptions,CouldNotWriteUsersException,3,0,0,0,1,0,1,0,1,0
+ServiciiFotoVideo,org.example.exceptions,FotografAlreadyExistsException,17,0,0,0,4,0,2,0,2,0

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SedintaFotoCuplu.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ServiciiFotoVideo</a> &gt; <a href="index.source.html" class="el_package">servicii.foto</a> &gt; <span class="el_source">SedintaFotoCuplu.java</span></div><h1>SedintaFotoCuplu.java</h1><pre class="source lang-java linenums">package servicii.foto;
+
+public class SedintaFotoCuplu extends ServiciiFoto {
+
+    public SedintaFotoCuplu(String numeClient, String data, boolean studio, boolean album) {
+<span class="fc" id="L6">        super(numeClient, data, studio, album);</span>
+<span class="fc" id="L7">        super.stick = true;</span>
+<span class="fc" id="L8">        super.pretOra = 60;</span>
+<span class="fc" id="L9">        super.nrMinute = 90;</span>
+<span class="fc" id="L10">        super.pretTotal = pretOra * (nrMinute / 60);</span>
+<span class="fc bfc" id="L11" title="All 2 branches covered.">        if(super.album)</span>
+<span class="fc" id="L12">            super.pretTotal += 50;</span>
+<span class="fc bfc" id="L13" title="All 2 branches covered.">        if(super.studio )</span>
+<span class="fc" id="L14">            super.pretTotal += 25;</span>
+<span class="fc" id="L15">    }</span>
+
+    @Override
+    public String informatiiServici(){
+<span class="fc bfc" id="L19" title="All 4 branches covered.">        if(album &amp;&amp; !studio)</span>
+<span class="fc" id="L20">            return super.informatiiServici() + &quot;: Sedinta foto cuplu in aer liber. Sedinta va dura &quot; + (int)nrMinute + &quot; minute si va costa &quot; + (int)pretTotal</span>
+                    + &quot; $. Livrarea se va face atat pe stick si veti avea si un album&quot;;
+<span class="fc bfc" id="L22" title="All 4 branches covered.">        else if(!album  &amp;&amp; !studio)</span>
+<span class="fc" id="L23">            return super.informatiiServici() + &quot;: Sedinta foto cuplu in aer liber. Sedinta va dura &quot; + (int)nrMinute + &quot; minute si va costa &quot; + (int)pretTotal</span>
+                    + &quot; $. Livrarea se va face pe stick&quot;;
+<span class="fc bfc" id="L25" title="All 2 branches covered.">        else if(!album)</span>
+<span class="fc" id="L26">            return super.informatiiServici() + &quot;: Sedinta foto cuplu in studio. Sedinta va dura &quot; + (int)nrMinute + &quot; minute si va costa &quot; + (int)pretTotal</span>
+                    + &quot; $. Livrarea se va face pe stick&quot;;
+<span class="fc" id="L28">        else return super.informatiiServici() + &quot;: Sedinta foto cuplu in studio. Sedinta va dura &quot; + (int)nrMinute + &quot; minute si va costa &quot; + (int)pretTotal</span>
+                    + &quot; $. Livrarea se va face atat pe stick si veti avea si un album&quot;;
+    }
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FereastraClient.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ServiciiFotoVideo</a> &gt; <a href="index.source.html" class="el_package">org.example</a> &gt; <span class="el_source">FereastraClient.java</span></div><h1>FereastraClient.java</h1><pre class="source lang-java linenums">package org.example;
+
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.ParseException;
+import servicii.Servicii;
+import servicii.foto.SedintaFotoCuplu;
+import servicii.foto.SedintaFotoFamilie;
+import servicii.foto.SedintaFotoProdus;
+import servicii.foto.SedintaFotoSimpla;
+import servicii.promo.PachetPromo;
+import servicii.video.VideoAdvertising;
+
+import org.json.simple.parser.JSONParser;
+import servicii.video.VideoHighlights;
+import servicii.video.VideoMuzical;
+
+import java.io.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+
+<span class="nc" id="L32">public class FereastraClient extends Main {</span>
+
+    private String tipServiciProgramare;
+    private String tipServiciFotoProgramare;
+    private String tipServiciVideoProgramare;
+    private int nrFotografiProgramare;
+    private int nrVideografiProgramare;
+    private int nrTinuteProduseMinuteProgramare;
+<span class="nc" id="L40">    private boolean studioProgramare = false;</span>
+<span class="nc" id="L41">    private boolean albumFotoProgramare = false;</span>
+    private int nrSecundeFilmareProgramare;
+    private int nrPublicNrFaniProgramare;
+    private static String dataProgramare;
+    @FXML
+    private DatePicker datePicker;
+<span class="nc" id="L47">    @FXML</span>
+    private ChoiceBox&lt;String&gt; PromoFotoVideo = new ChoiceBox&lt;&gt;();
+<span class="nc" id="L49">    @FXML</span>
+    private Button PromoFotoVideoButton = new Button();
+<span class="nc" id="L51">    @FXML</span>
+    private ChoiceBox&lt;Integer&gt; nrFotografi = new ChoiceBox&lt;&gt;();
+<span class="nc" id="L53">    @FXML</span>
+    private Button nrFotografiVideografiButton = new Button();
+<span class="nc" id="L55">    @FXML</span>
+    private ChoiceBox&lt;Integer&gt; nrVideografi = new ChoiceBox&lt;&gt;();
+<span class="nc" id="L57">    @FXML</span>
+    private TextField nrTinuteProduseMinute = new TextField();
+<span class="nc" id="L59">    @FXML</span>
+    private Button nrTinuteProduseMinuteButton = new Button();
+<span class="nc" id="L61">    @FXML</span>
+    private TextField nrSecundeFilmare = new TextField();
+<span class="nc" id="L63">    @FXML</span>
+    private Button nrSecundeFilmareButton = new Button();
+<span class="nc" id="L65">    @FXML</span>
+    private TextField nrPublicNrFani = new TextField();
+<span class="nc" id="L67">    @FXML</span>
+    private Button nrPublicNrFaniButton = new Button();
+<span class="nc" id="L69">    @FXML</span>
+    private ChoiceBox&lt;String&gt; tipSedintaFoto = new ChoiceBox&lt;&gt;();
+<span class="nc" id="L71">    @FXML</span>
+    private Button tipSedintaFotoButton = new Button();
+<span class="nc" id="L73">    @FXML</span>
+    private ChoiceBox&lt;String&gt; tipFilmareVideo = new ChoiceBox&lt;&gt;();
+<span class="nc" id="L75">    @FXML</span>
+    private Button tipFilmareVideoButton = new Button();
+<span class="nc" id="L77">    @FXML</span>
+    private CheckBox studio = new CheckBox();
+<span class="nc" id="L79">    @FXML</span>
+    private CheckBox albumFoto = new CheckBox();
+<span class="nc" id="L81">    @FXML</span>
+    private Button serviciNou = new Button();
+<span class="nc" id="L83">    @FXML</span>
+    private Button dorescOferta = new Button();
+<span class="nc" id="L85">    @FXML</span>
+    private Button helpButton = new Button();
+
+<span class="nc" id="L88">    JSONObject serviciiObject = new JSONObject();</span>
+
+    private static void ReadFromAgenda (String d) {
+<span class="nc" id="L91">        JSONParser jsonParser = new JSONParser();</span>
+
+<span class="nc" id="L93">        try (FileReader reader = new FileReader(&quot;agenda.json&quot;))</span>
+        {
+<span class="nc" id="L95">            Object obj = jsonParser.parse(reader);</span>
+<span class="nc" id="L96">            JSONArray programari = (JSONArray) obj;</span>
+<span class="nc" id="L97">            System.out.println(programari);</span>
+
+<span class="nc" id="L99">            programari.forEach( emp -&gt; parseProgramariObject( (JSONObject) emp ) );</span>
+
+<span class="nc bnc" id="L101" title="All 8 branches missed.">        } catch (FileNotFoundException e) {</span>
+<span class="nc" id="L102">            e.printStackTrace();</span>
+<span class="nc" id="L103">        } catch (IOException e) {</span>
+<span class="nc" id="L104">            e.printStackTrace();</span>
+<span class="nc" id="L105">        } catch (ParseException e) {</span>
+<span class="nc" id="L106">            e.printStackTrace();</span>
+<span class="nc" id="L107">        }</span>
+
+<span class="nc" id="L109">    }</span>
+
+    private static void parseProgramariObject(JSONObject programari) {
+<span class="nc" id="L112">        String data = (String) programari.get(&quot;Data programare&quot;);</span>
+<span class="nc" id="L113">        System.out.println(data);</span>
+<span class="nc bnc" id="L114" title="All 2 branches missed.">        if(data.equals(dataProgramare)) {</span>
+<span class="nc" id="L115">            Alert alert = new Alert(Alert.AlertType.WARNING);</span>
+<span class="nc" id="L116">            alert.setTitle(&quot;Warning&quot;);</span>
+<span class="nc" id="L117">            alert.setHeaderText(&quot;Aceasta data este rezervata!&quot;);</span>
+<span class="nc" id="L118">            alert.setContentText(&quot;Aceasta data este rezervata in agenda fotografului. Te rugam alege alta data!&quot;);</span>
+<span class="nc" id="L119">            alert.showAndWait();</span>
+        }
+<span class="nc" id="L121">    }</span>
+
+    //Functie care ne da valoarea unui choiceBox de orice tip
+    @FXML
+    private &lt;T&gt; void getStringChoice(ChoiceBox&lt;T&gt; choiceBox) {
+<span class="nc" id="L126">        T optiune = choiceBox.getValue();</span>
+        //System.out.println(optiune);
+        //sir = sir + optiune + &quot;\n&quot;;
+<span class="nc" id="L129">    }</span>
+
+    //Actions for buttons/datePicker/checkBoxes/choiceBoxes
+
+    @FXML
+    private void getDate() {
+<span class="nc" id="L135">        LocalDate data = datePicker.getValue();</span>
+<span class="nc" id="L136">        dataProgramare = data.format(DateTimeFormatter.ofPattern(&quot;dd/MM/yyyy&quot;));</span>
+
+<span class="nc" id="L138">        ReadFromAgenda(dataProgramare);</span>
+
+<span class="nc" id="L140">        datePicker.setDisable(false);</span>
+<span class="nc" id="L141">    }</span>
+
+    @FXML
+    private void actionForPromoFotoVideo() {
+<span class="nc" id="L145">        getStringChoice(PromoFotoVideo);</span>
+<span class="nc" id="L146">        tipServiciProgramare = PromoFotoVideo.getValue();</span>
+<span class="nc bnc" id="L147" title="All 2 branches missed.">        if(tipServiciProgramare.equals(&quot;Promo&quot;)) {</span>
+<span class="nc" id="L148">            PromoFotoVideo.setDisable(true);</span>
+<span class="nc" id="L149">            PromoFotoVideoButton.setDisable(true);</span>
+<span class="nc" id="L150">            nrFotografi.setDisable(false);</span>
+<span class="nc" id="L151">            nrFotografiVideografiButton.setDisable(false);</span>
+<span class="nc" id="L152">            nrVideografi.setDisable(false);</span>
+<span class="nc bnc" id="L153" title="All 2 branches missed.">        }else if(tipServiciProgramare.equals(&quot;Foto&quot;)) {</span>
+<span class="nc" id="L154">            PromoFotoVideo.setDisable(true);</span>
+<span class="nc" id="L155">            PromoFotoVideoButton.setDisable(true);</span>
+<span class="nc" id="L156">            tipSedintaFoto.setDisable(false);</span>
+<span class="nc" id="L157">            tipSedintaFotoButton.setDisable(false);</span>
+<span class="nc" id="L158">            albumFoto.setDisable(false);</span>
+<span class="nc" id="L159">            studio.setDisable(false);</span>
+<span class="nc" id="L160">            nrTinuteProduseMinute.setDisable(false);</span>
+<span class="nc" id="L161">            nrTinuteProduseMinuteButton.setDisable(false);</span>
+        }else {
+<span class="nc" id="L163">            PromoFotoVideo.setDisable(true);</span>
+<span class="nc" id="L164">            PromoFotoVideoButton.setDisable(true);</span>
+<span class="nc" id="L165">            tipFilmareVideo.setDisable(false);</span>
+<span class="nc" id="L166">            tipFilmareVideoButton.setDisable(false);</span>
+<span class="nc" id="L167">            nrSecundeFilmare.setDisable(false);</span>
+<span class="nc" id="L168">            nrSecundeFilmareButton.setDisable(false);</span>
+<span class="nc" id="L169">            nrPublicNrFani.setDisable(false);</span>
+<span class="nc" id="L170">            nrPublicNrFaniButton.setDisable(false);</span>
+        }
+<span class="nc" id="L172">    }</span>
+
+    @FXML
+    private void actionForFotografiVideografiButton() {
+<span class="nc" id="L176">        getStringChoice(nrFotografi);</span>
+<span class="nc" id="L177">        getStringChoice(nrVideografi);</span>
+<span class="nc" id="L178">        nrFotografiProgramare = nrFotografi.getValue();</span>
+<span class="nc" id="L179">        nrVideografiProgramare = nrVideografi.getValue();</span>
+<span class="nc" id="L180">    }</span>
+
+    @FXML
+    private void actionForTipSedintaFotoButton() {
+<span class="nc" id="L184">        getStringChoice(tipSedintaFoto);</span>
+<span class="nc" id="L185">        tipServiciFotoProgramare = tipSedintaFoto.getValue();</span>
+<span class="nc bnc" id="L186" title="All 2 branches missed.">        if(tipServiciFotoProgramare.equals(&quot;Sedinta foto simpla&quot;)) {</span>
+<span class="nc" id="L187">            nrTinuteProduseMinute.setPromptText(&quot;Minute&quot;);</span>
+<span class="nc" id="L188">            nrTinuteProduseMinute.setDisable(false);</span>
+<span class="nc" id="L189">            nrTinuteProduseMinuteButton.setDisable(false);</span>
+        }
+<span class="nc bnc" id="L191" title="All 2 branches missed.">        if(tipServiciFotoProgramare.equals(&quot;Sedinta foto cuplu&quot;)) {</span>
+<span class="nc" id="L192">            nrTinuteProduseMinute.setPromptText(&quot;90 min&quot;);</span>
+<span class="nc" id="L193">            nrTinuteProduseMinute.setDisable(true);</span>
+<span class="nc" id="L194">            nrTinuteProduseMinuteButton.setDisable(true);</span>
+        }
+<span class="nc bnc" id="L196" title="All 2 branches missed.">        if(tipServiciFotoProgramare.equals(&quot;Sedinta foto familie&quot;)) {</span>
+<span class="nc" id="L197">            nrTinuteProduseMinute.setPromptText(&quot;Tinute&quot;);</span>
+<span class="nc" id="L198">            nrTinuteProduseMinute.setDisable(false);</span>
+<span class="nc" id="L199">            nrTinuteProduseMinuteButton.setDisable(false);</span>
+        }
+<span class="nc bnc" id="L201" title="All 2 branches missed.">        if(tipServiciFotoProgramare.equals(&quot;Sedinta foto produse&quot;)) {</span>
+<span class="nc" id="L202">            nrTinuteProduseMinute.setPromptText(&quot;Produse&quot;);</span>
+<span class="nc" id="L203">            nrTinuteProduseMinute.setDisable(false);</span>
+<span class="nc" id="L204">            nrTinuteProduseMinuteButton.setDisable(false);</span>
+        }
+<span class="nc" id="L206">    }</span>
+
+    @FXML
+    private void actionForTipFilmareVideoButton() {
+<span class="nc" id="L210">        getStringChoice(tipFilmareVideo);</span>
+<span class="nc" id="L211">        tipServiciVideoProgramare = tipFilmareVideo.getValue();</span>
+<span class="nc bnc" id="L212" title="All 2 branches missed.">        if(tipServiciVideoProgramare.equals(&quot;Video highlights&quot;)) {</span>
+<span class="nc" id="L213">            nrPublicNrFani.setPromptText(&quot;TargetPublic/NumarFani&quot;);</span>
+<span class="nc" id="L214">            nrPublicNrFani.setDisable(true);</span>
+<span class="nc" id="L215">            nrPublicNrFaniButton.setDisable(true);</span>
+        }
+<span class="nc bnc" id="L217" title="All 2 branches missed.">        if(tipServiciVideoProgramare.equals(&quot;Video advertising&quot;)) {</span>
+<span class="nc" id="L218">            nrPublicNrFani.setPromptText(&quot;Numar public target&quot;);</span>
+<span class="nc" id="L219">            nrPublicNrFani.setDisable(false);</span>
+<span class="nc" id="L220">            nrPublicNrFaniButton.setDisable(false);</span>
+        }
+<span class="nc bnc" id="L222" title="All 2 branches missed.">        if(tipServiciVideoProgramare.equals(&quot;Video muzical&quot;)) {</span>
+<span class="nc" id="L223">            nrPublicNrFani.setPromptText(&quot;Numar fani&quot;);</span>
+<span class="nc" id="L224">            nrPublicNrFani.setDisable(false);</span>
+<span class="nc" id="L225">            nrPublicNrFaniButton.setDisable(false);</span>
+        }
+<span class="nc" id="L227">    }</span>
+
+    @FXML
+    private void actionForNrTinuteProduseMinuteButton() {
+<span class="nc bnc" id="L231" title="All 2 branches missed.">        if(nrTinuteProduseMinute.getText().isEmpty()) {</span>
+<span class="nc" id="L232">            Alert alert = new Alert(Alert.AlertType.WARNING);</span>
+<span class="nc" id="L233">            alert.setTitle(&quot;Warning&quot;);</span>
+<span class="nc" id="L234">            alert.setHeaderText(&quot;Campul nu este completat&quot;);</span>
+<span class="nc" id="L235">            alert.setContentText(&quot;Campul trebuie sa fie completat inainte de a apasa butonul \&quot;OK\&quot;.\n&quot; +</span>
+                            &quot;Te rugam sa completezi campul!&quot;);
+<span class="nc" id="L237">            alert.showAndWait();</span>
+<span class="nc" id="L238">        } else {</span>
+<span class="nc" id="L239">            nrTinuteProduseMinuteProgramare = Integer.parseInt(nrTinuteProduseMinute.getText());</span>
+        }
+<span class="nc" id="L241">    }</span>
+
+    @FXML
+    private void actionForNrSecundeFilmareButton() {
+<span class="nc bnc" id="L245" title="All 2 branches missed.">        if(nrSecundeFilmare.getText().isEmpty()) {</span>
+<span class="nc" id="L246">            Alert alert = new Alert(Alert.AlertType.WARNING);</span>
+<span class="nc" id="L247">            alert.setTitle(&quot;Warning&quot;);</span>
+<span class="nc" id="L248">            alert.setHeaderText(&quot;Campul nu este completat&quot;);</span>
+<span class="nc" id="L249">            alert.setContentText(&quot;Campul trebuie sa fie completat inainte de a apasa butonul \&quot;OK\&quot;.\n&quot; +</span>
+                    &quot;Te rugam sa completezi campul!&quot;);
+<span class="nc" id="L251">            alert.showAndWait();</span>
+<span class="nc" id="L252">        } else {</span>
+<span class="nc" id="L253">            nrSecundeFilmareProgramare = Integer.parseInt(nrSecundeFilmare.getText());</span>
+        }
+<span class="nc" id="L255">    }</span>
+
+    @FXML
+    private void actionForNrPublicNrFaniButton() {
+<span class="nc bnc" id="L259" title="All 2 branches missed.">        if(nrPublicNrFani.getText().isEmpty()) {</span>
+<span class="nc" id="L260">            Alert alert = new Alert(Alert.AlertType.WARNING);</span>
+<span class="nc" id="L261">            alert.setTitle(&quot;Warning&quot;);</span>
+<span class="nc" id="L262">            alert.setHeaderText(&quot;Campul nu este completat&quot;);</span>
+<span class="nc" id="L263">            alert.setContentText(&quot;Campul trebuie sa fie completat inainte de a apasa butonul \&quot;OK\&quot;.\n&quot; +</span>
+                    &quot;Te rugam sa completezi campul!&quot;);
+<span class="nc" id="L265">            alert.showAndWait();</span>
+<span class="nc" id="L266">        } else {</span>
+<span class="nc" id="L267">            nrPublicNrFaniProgramare = Integer.parseInt(nrPublicNrFani.getText());</span>
+        }
+<span class="nc" id="L269">    }</span>
+
+    @FXML
+    private void actionForStudioCheckBox() {
+<span class="nc bnc" id="L273" title="All 2 branches missed.">        if(studio.isSelected())</span>
+<span class="nc" id="L274">            studioProgramare = true;</span>
+        else
+<span class="nc" id="L276">            studioProgramare = false;</span>
+<span class="nc" id="L277">    }</span>
+
+    @FXML
+    private void actionForAlbumFotoCheckBox() {
+<span class="nc bnc" id="L281" title="All 2 branches missed.">        if(albumFoto.isSelected())</span>
+<span class="nc" id="L282">            albumFotoProgramare = true;</span>
+        else
+<span class="nc" id="L284">            albumFotoProgramare = false;</span>
+<span class="nc" id="L285">    }</span>
+
+    @FXML
+    private void serviciNouButton() {
+<span class="nc" id="L289">        initialize();</span>
+<span class="nc" id="L290">    }</span>
+
+    @FXML
+    private void actionForHelpButton() {
+<span class="nc" id="L294">        Alert alert = new Alert(Alert.AlertType.INFORMATION);</span>
+<span class="nc" id="L295">        alert.setTitle(&quot;Help window&quot;);</span>
+<span class="nc" id="L296">        alert.setHeaderText(&quot;Salvarea optiunilor&quot;);</span>
+<span class="nc" id="L297">        alert.setContentText(&quot;Pentru a salva optiunile foloseste butonul \&quot;OK\&quot; din dreapta fiecarui camp!\n&quot; +</span>
+                &quot;Pentru campurile \&quot;Numar fotografi\&quot; si \&quot;Numar videografi\&quot; exista un singur buton!&quot;);
+<span class="nc" id="L299">        alert.showAndWait();</span>
+<span class="nc" id="L300">    }</span>
+
+    @FXML
+    private void actionForDorescOfertaButton() {
+<span class="nc" id="L304">        JSONParser parser = new JSONParser();</span>
+<span class="nc" id="L305">        JSONArray array = new JSONArray();</span>
+        try {
+<span class="nc" id="L307">            FileReader file = new FileReader(&quot;agenda.json&quot;);</span>
+<span class="nc" id="L308">            JSONArray json =  (JSONArray) parser.parse(file);</span>
+<span class="nc" id="L309">            array = (JSONArray) json;</span>
+
+<span class="nc" id="L311">            } catch (IOException | ParseException e) {</span>
+<span class="nc" id="L312">                e.printStackTrace();</span>
+<span class="nc" id="L313">            }</span>
+
+<span class="nc" id="L315">        serviciiObject.put(&quot;Nume client&quot;, userNume);</span>
+<span class="nc" id="L316">        serviciiObject.put(&quot;Data programare&quot;, dataProgramare);</span>
+<span class="nc" id="L317">        Servicii s = checkServicii();</span>
+<span class="nc" id="L318">        serviciiObject.put(&quot;Servicii&quot;, s.informatiiServici());</span>
+<span class="nc" id="L319">        array.add(serviciiObject);</span>
+<span class="nc" id="L320">        boolean confirm = false;</span>
+
+        try {
+<span class="nc" id="L323">            FXMLLoader loader = new FXMLLoader(getClass().getResource(&quot;ConfirmBox.fxml&quot;));</span>
+<span class="nc" id="L324">            Parent root = loader.load();</span>
+<span class="nc" id="L325">            ConfirmBox confirmBox = loader.getController();</span>
+<span class="nc" id="L326">            confirmBox.setText(s.informatiiServici());</span>
+
+<span class="nc" id="L328">            Stage stage = new Stage();</span>
+<span class="nc" id="L329">            stage.setScene(new Scene(root));</span>
+<span class="nc" id="L330">            stage.setTitle(&quot;-- Confirmare servici dorit --&quot;);</span>
+<span class="nc" id="L331">            stage.showAndWait();</span>
+<span class="nc" id="L332">            confirm = confirmBox.isAnswer();</span>
+<span class="nc" id="L333">            System.out.println(confirm);</span>
+<span class="nc bnc" id="L334" title="All 2 branches missed.">            if(confirm == true) {</span>
+                try {
+<span class="nc" id="L336">                    FileWriter file = new FileWriter(&quot;agenda.json&quot;);</span>
+<span class="nc" id="L337">                    file.write(array.toJSONString());</span>
+<span class="nc" id="L338">                    file.flush();</span>
+<span class="nc" id="L339">                    file.close();</span>
+<span class="nc" id="L340">                } catch (IOException e) {</span>
+<span class="nc" id="L341">                    e.printStackTrace();</span>
+<span class="nc" id="L342">                }</span>
+            }
+<span class="nc" id="L344">        } catch (IOException e) {</span>
+<span class="nc" id="L345">            e.printStackTrace();</span>
+<span class="nc" id="L346">        }</span>
+<span class="nc" id="L347">    }</span>
+
+    public Servicii checkServicii() {
+<span class="nc bnc" id="L350" title="All 2 branches missed.">        if(tipServiciProgramare.equals(&quot;Promo&quot;)) {</span>
+<span class="nc" id="L351">            return new PachetPromo(userNume, dataProgramare, nrFotografiProgramare, nrVideografiProgramare);</span>
+<span class="nc bnc" id="L352" title="All 2 branches missed.">        } else if (tipServiciProgramare.equals(&quot;Foto&quot;)) {</span>
+<span class="nc bnc" id="L353" title="All 2 branches missed.">            if (tipServiciFotoProgramare.equals(&quot;Sedinta foto simpla&quot;)) {</span>
+<span class="nc" id="L354">                return new SedintaFotoSimpla(userNume, dataProgramare, studioProgramare, albumFotoProgramare, nrTinuteProduseMinuteProgramare);</span>
+<span class="nc bnc" id="L355" title="All 2 branches missed.">            } else if (tipServiciFotoProgramare.equals(&quot;Sedinta foto familie&quot;)) {</span>
+<span class="nc" id="L356">                return new SedintaFotoFamilie(userNume, dataProgramare, studioProgramare, albumFotoProgramare, nrTinuteProduseMinuteProgramare);</span>
+<span class="nc bnc" id="L357" title="All 2 branches missed.">            } else if (tipServiciFotoProgramare.equals(&quot;Sedinta foto cuplu&quot;)) {</span>
+<span class="nc" id="L358">                return new SedintaFotoCuplu(userNume, dataProgramare, studioProgramare, albumFotoProgramare);</span>
+<span class="nc bnc" id="L359" title="All 2 branches missed.">            } else if (tipServiciFotoProgramare.equals(&quot;Sedinta foto produse&quot;)) {</span>
+<span class="nc" id="L360">                return new SedintaFotoProdus(userNume, dataProgramare, studioProgramare, albumFotoProgramare, nrTinuteProduseMinuteProgramare);</span>
+            }
+<span class="nc bnc" id="L362" title="All 2 branches missed.">        } else if(tipServiciProgramare.equals(&quot;Video&quot;)) {</span>
+<span class="nc bnc" id="L363" title="All 2 branches missed.">            if (tipServiciVideoProgramare.equals(&quot;Video highlights&quot;)) {</span>
+<span class="nc" id="L364">                return new VideoHighlights(userNume, dataProgramare, nrSecundeFilmareProgramare);</span>
+<span class="nc bnc" id="L365" title="All 2 branches missed.">            } else if (tipServiciVideoProgramare.equals(&quot;Video muzical&quot;)) {</span>
+<span class="nc" id="L366">                return new VideoMuzical(userNume, dataProgramare, nrSecundeFilmareProgramare, nrPublicNrFaniProgramare);</span>
+<span class="nc bnc" id="L367" title="All 2 branches missed.">            } else if (tipServiciVideoProgramare.equals(&quot;Video advertising&quot;)) {</span>
+<span class="nc" id="L368">                return new VideoAdvertising(userNume, dataProgramare, nrSecundeFilmareProgramare, nrPublicNrFaniProgramare);</span>
+            }
+        }
+<span class="nc" id="L371">        return null;</span>
+    }
+
+    @FXML
+    public void addDataInChoiceBox() {
+<span class="nc" id="L376">        PromoFotoVideo.getItems().clear();</span>
+<span class="nc" id="L377">        nrFotografi.getItems().clear();</span>
+<span class="nc" id="L378">        nrVideografi.getItems().clear();</span>
+<span class="nc" id="L379">        tipSedintaFoto.getItems().clear();</span>
+<span class="nc" id="L380">        tipFilmareVideo.getItems().clear();</span>
+<span class="nc" id="L381">        datePicker.setDayCellFactory(picker -&gt; new DateCell() {</span>
+            public void updateItem(LocalDate date, boolean empty) {
+<span class="nc" id="L383">                super.updateItem(date, empty);</span>
+<span class="nc" id="L384">                LocalDate today = LocalDate.now();</span>
+<span class="nc bnc" id="L385" title="All 4 branches missed.">                setDisable(empty || date.compareTo(today) &lt; 0 );</span>
+<span class="nc" id="L386">            }</span>
+        });
+
+<span class="nc" id="L389">        PromoFotoVideo.getItems().addAll(</span>
+                &quot;Promo&quot;,
+                &quot;Foto&quot;,
+                &quot;Video&quot;
+        );
+<span class="nc" id="L394">        nrFotografi.getItems().addAll(1, 2);</span>
+<span class="nc" id="L395">        nrVideografi.getItems().addAll(1, 2);</span>
+<span class="nc" id="L396">        tipSedintaFoto.getItems().addAll(</span>
+                &quot;Sedinta foto simpla&quot;,
+                &quot;Sedinta foto cuplu&quot;,
+                &quot;Sedinta foto familie&quot;,
+                &quot;Sedinta foto produse&quot;
+        );
+<span class="nc" id="L402">        tipFilmareVideo.getItems().addAll(</span>
+                &quot;Video highlights&quot;,
+                &quot;Video advertising&quot;,
+                &quot;Video muzical&quot;
+        );
+
+<span class="nc" id="L408">        PromoFotoVideo.setValue(&quot;Promo&quot;);</span>
+<span class="nc" id="L409">        nrFotografi.setValue(1);</span>
+<span class="nc" id="L410">        nrVideografi.setValue(1);</span>
+<span class="nc" id="L411">        tipSedintaFoto.setValue(&quot;Sedinta foto simpla&quot;);</span>
+<span class="nc" id="L412">        tipFilmareVideo.setValue(&quot;Video highlights&quot;);</span>
+<span class="nc" id="L413">        nrTinuteProduseMinute.setPromptText(&quot;Nr Tinute/Produse/Minute&quot;);</span>
+<span class="nc" id="L414">        albumFoto.setSelected(false);</span>
+<span class="nc" id="L415">        studio.setSelected(false);</span>
+<span class="nc" id="L416">        albumFotoProgramare = false;</span>
+<span class="nc" id="L417">        studioProgramare = false;</span>
+<span class="nc" id="L418">        nrSecundeFilmare.setPromptText(&quot;Numar secunde filmare&quot;);</span>
+<span class="nc" id="L419">        nrPublicNrFani.setPromptText(&quot;TargetPublic/NumarFani&quot;);</span>
+<span class="nc" id="L420">    }</span>
+
+    //initializare FereastraClient
+
+    @FXML
+    public void initialize() {
+<span class="nc" id="L426">        addDataInChoiceBox();</span>
+<span class="nc" id="L427">        datePicker.setDisable(false);</span>
+<span class="nc" id="L428">        PromoFotoVideo.setDisable(false);</span>
+<span class="nc" id="L429">        PromoFotoVideoButton.setDisable(false);</span>
+<span class="nc" id="L430">        nrFotografi.setDisable(true);</span>
+<span class="nc" id="L431">        nrVideografi.setDisable(true);</span>
+<span class="nc" id="L432">        nrFotografiVideografiButton.setDisable(true);</span>
+<span class="nc" id="L433">        tipSedintaFoto.setDisable(true);</span>
+<span class="nc" id="L434">        tipSedintaFotoButton.setDisable(true);</span>
+<span class="nc" id="L435">        nrTinuteProduseMinute.setDisable(true);</span>
+<span class="nc" id="L436">        nrTinuteProduseMinuteButton.setDisable(true);</span>
+<span class="nc" id="L437">        studio.setDisable(true);</span>
+<span class="nc" id="L438">        albumFoto.setDisable(true);</span>
+<span class="nc" id="L439">        nrSecundeFilmare.setDisable(true);</span>
+<span class="nc" id="L440">        nrSecundeFilmareButton.setDisable(true);</span>
+<span class="nc" id="L441">        tipFilmareVideo.setDisable(true);</span>
+<span class="nc" id="L442">        tipFilmareVideoButton.setDisable(true);</span>
+<span class="nc" id="L443">        nrPublicNrFani.setDisable(true);</span>
+<span class="nc" id="L444">        nrPublicNrFaniButton.setDisable(true);</span>
+<span class="nc" id="L445">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

@@ -10,6 +10,7 @@ public class VideoAdvertising extends ServiciiVideo {
 
     @Override
     public String informatiiServici() {
-        return super.informatiiServici() + ": Video advertising. Va costa " + (int)pretTotal + " $. Livrarea se va face pe stick.";
+        return super.informatiiServici() + ": Video advertising. Va costa " + (int)pretTotal + " $. " +
+                "Livrarea se va face pe stick.";
     }
 }
