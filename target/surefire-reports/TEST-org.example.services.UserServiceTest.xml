@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="servicii.foto.SedintaFotoFamilieTest" time="0.074" tests="20" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="org.example.services.UserServiceTest" time="1.679" tests="2" errors="0" skipped="0" failures="0">
   <properties>
     <property name="gopherProxySet" value="false"/>
     <property name="awt.toolkit" value="sun.lwawt.macosx.LWCToolkit"/>
@@ -61,24 +61,6 @@
     <property name="java.class.version" value="52.0"/>
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
   </properties>
-  <testcase name="testAlbum[0]" classname="servicii.foto.SedintaFotoFamilieTest" time="0"/>
-  <testcase name="testData[0]" classname="servicii.foto.SedintaFotoFamilieTest" time="0.023"/>
-  <testcase name="testInformatiiServici[0]" classname="servicii.foto.SedintaFotoFamilieTest" time="0"/>
-  <testcase name="testNumeClient[0]" classname="servicii.foto.SedintaFotoFamilieTest" time="0"/>
-  <testcase name="testStudio[0]" classname="servicii.foto.SedintaFotoFamilieTest" time="0"/>
-  <testcase name="testAlbum[1]" classname="servicii.foto.SedintaFotoFamilieTest" time="0"/>
-  <testcase name="testData[1]" classname="servicii.foto.SedintaFotoFamilieTest" time="0"/>
-  <testcase name="testInformatiiServici[1]" classname="servicii.foto.SedintaFotoFamilieTest" time="0.002"/>
-  <testcase name="testNumeClient[1]" classname="servicii.foto.SedintaFotoFamilieTest" time="0"/>
-  <testcase name="testStudio[1]" classname="servicii.foto.SedintaFotoFamilieTest" time="0"/>
-  <testcase name="testAlbum[2]" classname="servicii.foto.SedintaFotoFamilieTest" time="0.003"/>
-  <testcase name="testData[2]" classname="servicii.foto.SedintaFotoFamilieTest" time="0"/>
-  <testcase name="testInformatiiServici[2]" classname="servicii.foto.SedintaFotoFamilieTest" time="0"/>
-  <testcase name="testNumeClient[2]" classname="servicii.foto.SedintaFotoFamilieTest" time="0.001"/>
-  <testcase name="testStudio[2]" classname="servicii.foto.SedintaFotoFamilieTest" time="0"/>
-  <testcase name="testAlbum[3]" classname="servicii.foto.SedintaFotoFamilieTest" time="0.001"/>
-  <testcase name="testData[3]" classname="servicii.foto.SedintaFotoFamilieTest" time="0"/>
-  <testcase name="testInformatiiServici[3]" classname="servicii.foto.SedintaFotoFamilieTest" time="0.002"/>
-  <testcase name="testNumeClient[3]" classname="servicii.foto.SedintaFotoFamilieTest" time="0"/>
-  <testcase name="testStudio[3]" classname="servicii.foto.SedintaFotoFamilieTest" time="0"/>
+  <testcase name="testCopyDefaultFileIfNotExists" classname="org.example.services.UserServiceTest" time="1.406"/>
+  <testcase name="testAddUserAlreadyExists" classname="org.example.services.UserServiceTest" time="0.009"/>
 </testsuite>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="servicii.video.VideoAdvertisingTest" time="0" tests="6" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="servicii.video.VideoAdvertisingTest" time="0.018" tests="6" errors="0" skipped="0" failures="0">
   <properties>
     <property name="gopherProxySet" value="false"/>
     <property name="awt.toolkit" value="sun.lwawt.macosx.LWCToolkit"/>
@@ -17,7 +17,7 @@
     <property name="user.country" value="RO"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_221.jdk/Contents/Home/jre/lib"/>
-    <property name="sun.java.command" value="/Users/ovidiu/Desktop/ProiectFIS/target/surefire/surefirebooter7585749412304094601.jar /Users/ovidiu/Desktop/ProiectFIS/target/surefire 2020-06-21T08-03-02_088-jvmRun1 surefire3894164757843927620tmp surefire_02999633242744144324tmp"/>
+    <property name="sun.java.command" value="/Users/ovidiu/Desktop/ProiectFIS/target/surefire/surefirebooter883466307942085428.jar /Users/ovidiu/Desktop/ProiectFIS/target/surefire 2020-06-21T10-19-56_675-jvmRun1 surefire4489990031312262807tmp surefire_01532313823006831275tmp"/>
     <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="surefire.test.class.path" value="/Users/ovidiu/Desktop/ProiectFIS/target/test-classes:/Users/ovidiu/Desktop/ProiectFIS/target/classes:/Users/ovidiu/.m2/repository/junit/junit/4.12/junit-4.12.jar:/Users/ovidiu/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/Users/ovidiu/.m2/repository/com/googlecode/json-simple/json-simple/1.1.1/json-simple-1.1.1.jar:/Users/ovidiu/.m2/repository/org/openjfx/javafx-controls/14/javafx-controls-14.jar:/Users/ovidiu/.m2/repository/org/openjfx/javafx-controls/14/javafx-controls-14-mac.jar:/Users/ovidiu/.m2/repository/org/openjfx/javafx-graphics/14/javafx-graphics-14.jar:/Users/ovidiu/.m2/repository/org/openjfx/javafx-graphics/14/javafx-graphics-14-mac.jar:/Users/ovidiu/.m2/repository/org/openjfx/javafx-base/14/javafx-base-14.jar:/Users/ovidiu/.m2/repository/org/openjfx/javafx-base/14/javafx-base-14-mac.jar:/Users/ovidiu/.m2/repository/org/openjfx/javafx-fxml/14/javafx-fxml-14.jar:/Users/ovidiu/.m2/repository/org/openjfx/javafx-fxml/14/javafx-fxml-14-mac.jar:/Users/ovidiu/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.11.0.rc1/jackson-databind-2.11.0.rc1.jar:/Users/ovidiu/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.11.0.rc1/jackson-annotations-2.11.0.rc1.jar:/Users/ovidiu/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.11.0.rc1/jackson-core-2.11.0.rc1.jar:/Users/ovidiu/.m2/repository/commons-io/commons-io/1.3.2/commons-io-1.3.2.jar:/Users/ovidiu/.m2/repository/org/mockito/mockito-all/1.10.19/mockito-all-1.10.19.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -31,7 +31,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.awt.graphicsenv" value="sun.awt.CGraphicsEnvironment"/>
-    <property name="surefire.real.class.path" value="/Users/ovidiu/Desktop/ProiectFIS/target/surefire/surefirebooter7585749412304094601.jar:/Users/ovidiu/.m2/repository/org/jacoco/org.jacoco.agent/0.7.9/org.jacoco.agent-0.7.9-runtime.jar"/>
+    <property name="surefire.real.class.path" value="/Users/ovidiu/Desktop/ProiectFIS/target/surefire/surefirebooter883466307942085428.jar:/Users/ovidiu/.m2/repository/org/jacoco/org.jacoco.agent/0.7.9/org.jacoco.agent-0.7.9-runtime.jar"/>
     <property name="sun.boot.class.path" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_221.jdk/Contents/Home/jre/lib/resources.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_221.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_221.jdk/Contents/Home/jre/lib/sunrsasign.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_221.jdk/Contents/Home/jre/lib/jsse.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_221.jdk/Contents/Home/jre/lib/jce.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_221.jdk/Contents/Home/jre/lib/charsets.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_221.jdk/Contents/Home/jre/lib/jfr.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_221.jdk/Contents/Home/jre/classes"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
@@ -62,7 +62,7 @@
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
   </properties>
   <testcase name="testData[0]" classname="servicii.video.VideoAdvertisingTest" time="0"/>
-  <testcase name="testNume[0]" classname="servicii.video.VideoAdvertisingTest" time="0"/>
+  <testcase name="testNume[0]" classname="servicii.video.VideoAdvertisingTest" time="0.001"/>
   <testcase name="testInformatiiServici[0]" classname="servicii.video.VideoAdvertisingTest" time="0"/>
   <testcase name="testData[1]" classname="servicii.video.VideoAdvertisingTest" time="0"/>
   <testcase name="testNume[1]" classname="servicii.video.VideoAdvertisingTest" time="0"/>

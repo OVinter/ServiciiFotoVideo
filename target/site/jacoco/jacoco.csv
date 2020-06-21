@@ -3,10 +3,10 @@ ServiciiFotoVideo,servicii.video,ServiciiVideo,0,26,0,0,0,10,0,5,0,5
 ServiciiFotoVideo,servicii.video,VideoMuzical,0,39,0,0,0,5,0,2,0,2
 ServiciiFotoVideo,servicii.video,VideoAdvertising,0,40,0,0,0,5,0,2,0,2
 ServiciiFotoVideo,servicii.video,VideoHighlights,0,35,0,0,0,5,0,2,0,2
-ServiciiFotoVideo,org.example.model,User,125,0,10,0,27,0,16,0,11,0
-ServiciiFotoVideo,org.example.services,UserService.new TypeReference() {...},3,0,0,0,1,0,1,0,1,0
-ServiciiFotoVideo,org.example.services,FileSystemService,41,0,2,0,8,0,6,0,5,0
-ServiciiFotoVideo,org.example.services,UserService,183,0,16,0,44,0,18,0,10,0
+ServiciiFotoVideo,org.example.model,User,107,18,10,0,18,9,11,5,6,5
+ServiciiFotoVideo,org.example.services,UserService.new TypeReference() {...},0,3,0,0,0,1,0,1,0,1
+ServiciiFotoVideo,org.example.services,FileSystemService,7,36,1,1,2,7,2,4,1,4
+ServiciiFotoVideo,org.example.services,UserService,130,53,12,4,35,9,14,4,7,3
 ServiciiFotoVideo,servicii.foto,SedintaFotoSimpla,0,145,0,14,0,16,0,9,0,2
 ServiciiFotoVideo,servicii.foto,SedintaFotoCuplu,0,147,0,14,0,17,0,9,0,2
 ServiciiFotoVideo,servicii.foto,ServiciiFoto,2,40,1,1,1,15,1,8,0,8
@@ -21,6 +21,6 @@ ServiciiFotoVideo,org.example,PrimaryController,9,0,0,0,5,0,3,0,3,0
 ServiciiFotoVideo,org.example,ConfirmBox,60,0,0,0,19,0,6,0,6,0
 ServiciiFotoVideo,org.example,FereastraClient.new DateCell() {...},24,0,4,0,5,0,4,0,2,0
 ServiciiFotoVideo,org.example,SecondaryController,68,0,8,0,15,0,8,0,4,0
-ServiciiFotoVideo,org.example.exceptions,UsernameAlreadyExistsException,17,0,0,0,4,0,2,0,2,0
+ServiciiFotoVideo,org.example.exceptions,UsernameAlreadyExistsException,3,14,0,0,1,3,1,1,1,1
 ServiciiFotoVideo,org.example.exceptions,CouldNotWriteUsersException,3,0,0,0,1,0,1,0,1,0
 ServiciiFotoVideo,org.example.exceptions,FotografAlreadyExistsException,17,0,0,0,4,0,2,0,2,0
