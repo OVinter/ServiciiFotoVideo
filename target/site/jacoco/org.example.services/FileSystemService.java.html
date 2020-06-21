@@ -5,22 +5,22 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 <span class="nc" id="L7">public class FileSystemService {</span>
-    private static final String APPLICATION_FOLDER = &quot;.registration-example&quot;;
-<span class="nc" id="L9">    private static final String USER_FOLDER = System.getProperty(&quot;user.home&quot;);</span>
+<span class="fc" id="L8">    public static String APPLICATION_FOLDER = &quot;.registration-example&quot;;</span>
+<span class="fc" id="L9">    private static final String USER_FOLDER = System.getProperty(&quot;user.home&quot;);</span>
     
-<span class="nc" id="L11">    public static final Path APPLICATION_HOME_PATH = Paths.get(USER_FOLDER, APPLICATION_FOLDER);</span>
+<span class="fc" id="L11">    public static final Path APPLICATION_HOME_PATH = Paths.get(USER_FOLDER, APPLICATION_FOLDER);</span>
 
     public static Path getPathToFile(String... path) {
-<span class="nc" id="L14">        return APPLICATION_HOME_PATH.resolve(Paths.get(&quot;.&quot;, path));</span>
+<span class="fc" id="L14">        return APPLICATION_HOME_PATH.resolve(Paths.get(&quot;.&quot;, path));</span>
     }
 
     public static Path getApplicationHomePath() {
-<span class="nc" id="L18">        return Paths.get(USER_FOLDER, APPLICATION_FOLDER);</span>
+<span class="fc" id="L18">        return Paths.get(USER_FOLDER, APPLICATION_FOLDER);</span>
     }
 
     public static void initApplicationHomeDirIfNeeded() {
-<span class="nc bnc" id="L22" title="All 2 branches missed.">        if (!Files.exists(getApplicationHomePath()))</span>
+<span class="pc bpc" id="L22" title="1 of 2 branches missed.">        if (!Files.exists(getApplicationHomePath()))</span>
 <span class="nc" id="L23">            getApplicationHomePath().toFile().mkdirs();</span>
-<span class="nc" id="L24">    }</span>
+<span class="fc" id="L24">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

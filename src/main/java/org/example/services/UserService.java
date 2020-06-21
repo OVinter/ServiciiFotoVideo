@@ -22,8 +22,8 @@ import java.util.Objects;
 
 public class UserService {
 
-    private static List<User> users;
-    private static final Path USERS_PATH = FileSystemService.getPathToFile("config", "users.json");
+    public static List<User> users;
+    public static Path USERS_PATH = FileSystemService.getPathToFile("config", "users.json");
 
     public static void loadUsersFromFile() throws IOException {
 
@@ -44,14 +44,14 @@ public class UserService {
         persistUsers();
     }
 
-    private static void checkUserDoesNotAlreadyExist(String username) throws UsernameAlreadyExistsException {
+    public static void checkUserDoesNotAlreadyExist(String username) throws UsernameAlreadyExistsException {
         for (User user : users) {
             if (Objects.equals(username, user.getUsername()))
                 throw new UsernameAlreadyExistsException(username);
         }
     }
 
-    private static void checkUserFotografDoesNotAlreadyExist(String role) throws FotografAlreadyExistsException {
+    public static void checkUserFotografDoesNotAlreadyExist(String role) throws FotografAlreadyExistsException {
         for (User user : users) {
             if(Objects.equals(role, "Fotograf"))
                 throw new FotografAlreadyExistsException(role);

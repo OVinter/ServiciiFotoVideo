@@ -4,6 +4,7 @@ servicii/video/VideoHighlightsTest.class
 servicii/video/VideoMuzicalTest.class
 servicii/foto/ServiciiFotoTest.class
 servicii/promo/PachetPromoTest.class
+org/example/services/UserServiceTest.class
 servicii/foto/SedintaFotoCupluTest.class
 servicii/foto/SedintaFotoProdusTest.class
 servicii/video/VideoAdvertisingTest.class
