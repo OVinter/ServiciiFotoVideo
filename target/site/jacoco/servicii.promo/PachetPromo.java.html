@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PachetPromo.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ServiciiFotoVideo</a> &gt; <a href="index.source.html" class="el_package">servicii.promo</a> &gt; <span class="el_source">PachetPromo.java</span></div><h1>PachetPromo.java</h1><pre class="source lang-java linenums">package servicii.promo;
+
+import servicii.Servicii;
+import servicii.foto.ServiciiFoto;
+import servicii.video.VideoHighlights;
+import servicii.foto.SedintaFotoSimpla;
+
+import java.util.ArrayList;
+
+public class PachetPromo implements Servicii {
+
+    private String numeClient;
+    private String data;
+<span class="fc" id="L14">    private boolean album = true;</span>
+    private int nrFotografi;
+    private int nrVideografi;
+    private int nrMinute;
+<span class="fc" id="L18">    private ArrayList&lt;Servicii&gt; servicii = new ArrayList&lt;Servicii&gt;();</span>
+
+<span class="fc" id="L20">    public PachetPromo(String numeClient, String data, int nrFotografi, int nrVideografi) {</span>
+<span class="fc" id="L21">        this.numeClient = numeClient;</span>
+<span class="fc" id="L22">        this.data = data;</span>
+        //this.album = album;
+<span class="fc" id="L24">        this.nrFotografi = nrFotografi;</span>
+<span class="fc" id="L25">        this.nrVideografi = nrVideografi;</span>
+<span class="fc" id="L26">        this.nrMinute = 8 * 60;</span>
+
+
+<span class="fc bfc" id="L29" title="All 4 branches covered.">        if (nrFotografi == 2 &amp;&amp; nrVideografi == 1) {</span>
+<span class="fc" id="L30">            servicii.add(new SedintaFotoSimpla(numeClient, data, false, album, nrMinute));</span>
+<span class="fc" id="L31">            servicii.add(new SedintaFotoSimpla(numeClient, data, false, album, nrMinute));</span>
+<span class="fc" id="L32">            servicii.add(new VideoHighlights(numeClient, data, 120));</span>
+<span class="fc bfc" id="L33" title="All 4 branches covered.">        } else if (nrVideografi == 2 &amp;&amp; nrFotografi == 1) {</span>
+<span class="fc" id="L34">            servicii.add(new VideoHighlights(numeClient, data, 120));</span>
+<span class="fc" id="L35">            servicii.add(new VideoHighlights(numeClient, data, 120));</span>
+<span class="fc" id="L36">            servicii.add(new SedintaFotoSimpla(numeClient, data, false, album, nrMinute));</span>
+<span class="pc bpc" id="L37" title="1 of 4 branches missed.">        } else if (nrFotografi == 1 &amp;&amp; nrVideografi == 1) {</span>
+<span class="fc" id="L38">            servicii.add(new SedintaFotoSimpla(numeClient, data, false, album, nrMinute));</span>
+<span class="fc" id="L39">            servicii.add(new VideoHighlights(numeClient, data, 120));</span>
+<span class="pc bpc" id="L40" title="2 of 4 branches missed.">        } else if (nrFotografi == 2 &amp;&amp; nrVideografi == 2) {</span>
+<span class="fc" id="L41">            servicii.add(new SedintaFotoSimpla(numeClient, data, false, album, nrMinute));</span>
+<span class="fc" id="L42">            servicii.add(new SedintaFotoSimpla(numeClient, data, false, album, nrMinute));</span>
+<span class="fc" id="L43">            servicii.add(new VideoHighlights(numeClient, data, 120));</span>
+<span class="fc" id="L44">            servicii.add(new VideoHighlights(numeClient, data, 120));</span>
+        }
+<span class="fc" id="L46">    }</span>
+
+    @Override
+    public double getCostTotal() {
+<span class="fc" id="L50">        double costTotal = 0;</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">        for (Servicii ser : servicii)</span>
+<span class="fc bfc" id="L52" title="All 2 branches covered.">            if (ser instanceof ServiciiFoto)</span>
+<span class="fc" id="L53">                costTotal += ser.getCostTotal() - ((ServiciiFoto) ser).getPretAlbum();</span>
+            else
+<span class="fc" id="L55">                costTotal += ser.getCostTotal();</span>
+<span class="fc" id="L56">        return costTotal;</span>
+    }
+
+    @Override
+    public String informatiiServici() {
+<span class="fc bfc" id="L61" title="All 4 branches covered.">        if (nrFotografi == 2 &amp;&amp; nrVideografi == 1) {</span>
+<span class="fc" id="L62">            double costTotal = getCostTotal() - (getCostTotal() * (25.0f / 100.0f));</span>
+<span class="fc" id="L63">            return &quot; Pachet promo Foto + Video. Echipa va fi formata din &quot; + nrFotografi + &quot; fotografi si &quot;</span>
+                    + nrVideografi + &quot; videograf. Va costa &quot; + (int) costTotal
+                    + &quot;$ . Livrarea se va face atat pe stick si respectiv pe un album gratuit din partea noastra.&quot;;
+<span class="pc bpc" id="L66" title="1 of 4 branches missed.">        } else if (nrVideografi == 1 &amp;&amp; nrFotografi == 1)</span>
+<span class="fc" id="L67">            return &quot; Pachet promo Simplu. Echipa va fi formata din &quot; + nrFotografi + &quot; fotograf si &quot;</span>
+<span class="fc" id="L68">                    + nrVideografi + &quot; videograf. Va costa &quot; + (int) getCostTotal()</span>
+                    + &quot;$ . Livrarea se va face atat pe stick si respectiv pe un album gratuit din partea noastra.&quot;;
+<span class="pc bpc" id="L70" title="1 of 4 branches missed.">        else if (nrVideografi == 2 &amp;&amp; nrFotografi == 1) {</span>
+<span class="fc" id="L71">            double costTotal = getCostTotal() - (getCostTotal() * (25.0f / 100.0f));</span>
+<span class="fc" id="L72">            return &quot; Pachet promo Video + Foto. Echipa va fi formata din &quot; + nrFotografi + &quot; fotograf si &quot;</span>
+                    + nrVideografi + &quot; videografi. Va costa &quot; + (int) costTotal
+                    + &quot;$ . Livrarea se va face pe stick.&quot;;
+<span class="pc bpc" id="L75" title="2 of 4 branches missed.">        } else if (nrFotografi == 2 &amp;&amp; nrVideografi == 2) {</span>
+<span class="fc" id="L76">            double costTotal = getCostTotal() - (getCostTotal() * (15.0f / 100.0f));</span>
+<span class="fc" id="L77">            return &quot; Pachet VIP. Echipa va fi formata din &quot; + nrFotografi + &quot; fotografi si &quot;</span>
+                    + nrVideografi + &quot; videografi. Va costa &quot; + (int) costTotal
+                    + &quot;$ . Livrarea se va face pe stick si respectiv pe un album gratuit din partea noastra.&quot;;
+<span class="nc" id="L80">        } else return &quot;Nu ati ales un pachet din oferta noastra&quot;;</span>
+    }
+
+    @Override
+    public String getNumeClient() {
+<span class="fc" id="L85">        return this.numeClient;</span>
+    }
+
+    @Override
+    public String getData() {
+<span class="fc" id="L90">        return this.data;</span>
+    }
+}
+
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

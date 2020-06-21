@@ -26,12 +26,14 @@ public class PachetPromo implements Servicii {
         this.nrMinute = 8 * 60;
 
 
-        if (nrFotografi == 2 && nrVideografi == 0) {
+        if (nrFotografi == 2 && nrVideografi == 1) {
             servicii.add(new SedintaFotoSimpla(numeClient, data, false, album, nrMinute));
             servicii.add(new SedintaFotoSimpla(numeClient, data, false, album, nrMinute));
-        } else if (nrVideografi == 2 && nrFotografi == 0) {
+            servicii.add(new VideoHighlights(numeClient, data, 120));
+        } else if (nrVideografi == 2 && nrFotografi == 1) {
             servicii.add(new VideoHighlights(numeClient, data, 120));
             servicii.add(new VideoHighlights(numeClient, data, 120));
+            servicii.add(new SedintaFotoSimpla(numeClient, data, false, album, nrMinute));
         } else if (nrFotografi == 1 && nrVideografi == 1) {
             servicii.add(new SedintaFotoSimpla(numeClient, data, false, album, nrMinute));
             servicii.add(new VideoHighlights(numeClient, data, 120));
@@ -56,17 +58,18 @@ public class PachetPromo implements Servicii {
 
     @Override
     public String informatiiServici() {
-        if (nrFotografi == 2 && nrVideografi == 0)
-            return " Pachet promo Foto. Echipa va fi formata din " + nrFotografi + " fotografi si "
-                    + nrVideografi + " videografi. Va costa " + (int) getCostTotal()
+        if (nrFotografi == 2 && nrVideografi == 1) {
+            double costTotal = getCostTotal() - (getCostTotal() * (25.0f / 100.0f));
+            return " Pachet promo Foto + Video. Echipa va fi formata din " + nrFotografi + " fotografi si "
+                    + nrVideografi + " videograf. Va costa " + (int) costTotal
                     + "$ . Livrarea se va face atat pe stick si respectiv pe un album gratuit din partea noastra.";
-        else if (nrVideografi == 1 && nrFotografi == 1)
+        } else if (nrVideografi == 1 && nrFotografi == 1)
             return " Pachet promo Simplu. Echipa va fi formata din " + nrFotografi + " fotograf si "
                     + nrVideografi + " videograf. Va costa " + (int) getCostTotal()
                     + "$ . Livrarea se va face atat pe stick si respectiv pe un album gratuit din partea noastra.";
-        else if (nrVideografi == 2 && nrFotografi == 0) {
+        else if (nrVideografi == 2 && nrFotografi == 1) {
             double costTotal = getCostTotal() - (getCostTotal() * (25.0f / 100.0f));
-            return " Pachet promo Video. Echipa va fi formata din " + nrFotografi + " fotografi si "
+            return " Pachet promo Video + Foto. Echipa va fi formata din " + nrFotografi + " fotograf si "
                     + nrVideografi + " videografi. Va costa " + (int) costTotal
                     + "$ . Livrarea se va face pe stick.";
         } else if (nrFotografi == 2 && nrVideografi == 2) {

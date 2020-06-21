@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SecondaryController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ServiciiFotoVideo</a> &gt; <a href="index.source.html" class="el_package">org.example</a> &gt; <span class="el_source">SecondaryController.java</span></div><h1>SecondaryController.java</h1><pre class="source lang-java linenums">package org.example;
+
+import java.io.IOException;
+import javafx.fxml.FXML;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
+
+import org.example.exceptions.FotografAlreadyExistsException;
+import org.example.exceptions.UsernameAlreadyExistsException;
+import org.example.services.UserService;
+
+<span class="nc" id="L14">public class SecondaryController {</span>
+
+    public TextField userText;
+    public PasswordField passText;
+    public Text LoginMsg;
+    public ChoiceBox role;
+
+    /*@FXML
+    private void switchToPrimary() throws IOException {
+        Main.setRoot(&quot;lgnbf&quot;);
+    }*/
+
+
+    @FXML
+    public void initialize() {
+<span class="nc" id="L29">        role.getItems().addAll(&quot;Fotograf&quot;, &quot;Client&quot;);</span>
+<span class="nc" id="L30">    }</span>
+
+    @FXML
+    public void handleRegisterAction() {
+<span class="nc" id="L34">        String nume_utilizator = userText.getText();</span>
+<span class="nc" id="L35">        String parola = passText.getText();</span>
+<span class="nc bnc" id="L36" title="All 8 branches missed.">        if (nume_utilizator == null || nume_utilizator.isEmpty() || parola == null || parola.isEmpty()) {</span>
+<span class="nc" id="L37">            LoginMsg.setText(&quot;Username and password are required!&quot;);</span>
+        } else {
+            try {
+<span class="nc" id="L40">                UserService.addUser(userText.getText(), passText.getText(), (String) role.getValue());</span>
+<span class="nc" id="L41">                LoginMsg.setText(&quot;Account created successfully!&quot;);</span>
+<span class="nc" id="L42">            } catch (UsernameAlreadyExistsException | FotografAlreadyExistsException e) {</span>
+<span class="nc" id="L43">                LoginMsg.setText(e.getMessage());</span>
+<span class="nc" id="L44">            }</span>
+        }
+<span class="nc" id="L46">    }</span>
+
+    @FXML
+    private void backHome() throws IOException {
+<span class="nc" id="L50">        Main.setRoot(&quot;lgnbf&quot;);</span>
+<span class="nc" id="L51">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

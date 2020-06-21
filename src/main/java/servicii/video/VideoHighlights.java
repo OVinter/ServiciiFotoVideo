@@ -9,7 +9,8 @@ public class VideoHighlights extends ServiciiVideo {
 
     @Override
     public String informatiiServici() {
-        return super.informatiiServici() + ": Video Highlights. Va costa " + (int)pretTotal + " $. Livrarea se va face pe stick.";
+        return super.informatiiServici() + ": Video Highlights. Va costa " + (int)pretTotal + " $. " +
+                "Livrarea se va face pe stick.";
     }
 
 }
